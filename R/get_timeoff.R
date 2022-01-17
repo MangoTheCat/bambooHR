@@ -2,7 +2,7 @@
 #'
 #' @param start Character in format "YYYY-MM-DD". Only show time off that occurs on/after the specified start date.
 #' @param end Character in format "YYYY-MM-DD". Only show time off that occurs on/before the specified end date.
-#' @param id (optional) - A particular request ID to limit the response to.
+#' @param id (optional) Integer - A particular request ID to limit the response to.
 #' @param action (optional) - Limit to requests that the user has a particular level of access to. Legal values are: "view" or "approve".
 #' @param employee_id  (optional) Character - A particular employee ID to limit the response to.
 #' @param type (optional) - A vector of time off types IDs to include limit the response to. Default is all types are included.
