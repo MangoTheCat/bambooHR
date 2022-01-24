@@ -36,5 +36,5 @@ jobs:
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
           echo $RMD_PATH
-          git commit ${RMD_PATH[*]/.Rmd/.md} -m 'Re-build Rmarkdown files' || echo "No changes to commit1"
+          git commit ${RMD_PATH[*]/*.Rmd/*.md} -m 'Re-build Rmarkdown files' || echo "No changes to commit1"
           git push origin || echo "No changes to commit2"
