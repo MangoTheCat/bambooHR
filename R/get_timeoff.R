@@ -74,7 +74,7 @@ get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NU
   if (!is.null(url_args)){
     stopifnot(is.list(url_args))
     query$url_args <- NULL
-  }
+  }else{url_args <- list()}
 
   url <- do.call(build_url, url_args)
   url <- glue::glue("{url}/time_off/requests") |>
@@ -121,7 +121,7 @@ get_whos_out <- function(start = "", end = "", url_args = NULL) {
 
   if (!is.null(url_args)){
     stopifnot(is.list(url_args))
-  }
+  }else{url_args <- list()}
 
   url <- do.call(build_url, url_args)
   url <- glue::glue("{url}/time_off/whos_out") |>
