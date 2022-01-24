@@ -14,7 +14,7 @@ company domain and an API access token, users can seamlessly make API
 requests through built-in R functions. Get employees, employee files,
 reports and tables, all from within R.
 
-Add text herer
+More fake text 223457892874783difds
 
 ## Installing and Loading {bambooHR}
 
