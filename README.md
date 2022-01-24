@@ -14,6 +14,8 @@ company domain and an API access token, users can seamlessly make API
 requests through built-in R functions. Get employees, employee files,
 reports and tables, all from within R.
 
+Add text herer
+
 ## Installing and Loading {bambooHR}
 
 To install the latest release from CRAN, run:
