@@ -7,7 +7,8 @@
 #' @param employee_id  (optional) Character - A particular employee ID to limit the response to.
 #' @param type (optional) - A vector of time off types IDs to include limit the response to. Default is all types are included.
 #' @param status (optional) - A vector of request status values to include. Legal values are "approved", "denied", "superseded", "requested", "canceled". Default is all status types.
-#' @param url_args (optional) - A list of named or unnamed arguments to be passed to build_URL function.
+#' @param api_version (optional) - Version of API to use to make request. Default is "v1".
+#' @param base_url (optional) - URL to BambooHR API. Default is "https://api.bamboohr.com/api/gateway.php".
 #'
 #' @references \url{https://documentation.bamboohr.com/reference/time-off-1}
 #' @return A [httr::response()] object.
@@ -29,18 +30,16 @@
 #' res <- get_timeoff("2022-01-01", "2022-02-01", action = "approve", status = c("approved", "denied"))
 #' httr::content(res, "parsed")
 #'
-#' res <- get_timeoff("2022-01-01", "2022-02-01", url_args = list(company_domain = "company"))
-#' httr::content(res, "parsed")
 #' }
 get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NULL, type = NULL,
                         status = c("approved", "denied", "superseded", "requested", "canceled"),
-                        url_args = NULL) {
+                        api_version = "v1",
+                        base_url = "https://api.bamboohr.com/api/gateway.php") {
 
   invalid_start <- is.na(lubridate::parse_date_time(start, orders = "ymd", quiet = TRUE))
   invalid_end <- is.na(lubridate::parse_date_time(end, orders = "ymd", quiet = TRUE))
 
   if (invalid_start | invalid_end) stop("Invalid date. Date formats must be YYYY-MM-DD")
-
 
   if (!is.null(id)) {
     id <- as.integer(id)
@@ -61,7 +60,15 @@ get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NU
 
   stopifnot(all(status %in% c("approved", "denied", "superseded", "requested", "canceled")))
 
-  query <- as.list(match.call()[-1])
+  query <- list(
+    start = start,
+    end = end,
+    id = id,
+    action = action,
+    employee_id = employee_id,
+    type = type,
+    status = status
+  ) |> purrr::discard(is.null)
 
   # convert type and status to comma separated strings
   if (!is.null(query$status)) {
@@ -71,12 +78,8 @@ get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NU
     query$type <- paste(type_coerced, collapse = ",")
   }
 
-  if (!is.null(url_args)){
-    stopifnot(is.list(url_args))
-    query$url_args <- NULL
-  }else{url_args <- list()}
-
-  url <- do.call(build_url, url_args)
+  url <- build_url(api_version = api_version,
+                   base_url = base_url)
   url <- glue::glue("{url}/time_off/requests") |>
     httr::modify_url(query = query)
   response <- get_request(url)
@@ -86,7 +89,8 @@ get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NU
 #'
 #' @param start (optional) - a date in the form YYYY-MM-DD - defaults to the current date.
 #' @param end  (optional) - a date in the form YYYY-MM-DD - defaults to 14 days from the start date.
-#' @param url_args (optional) - A list of named or unnamed arguments to be passed to build_URL function.
+#' @param api_version (optional) - Version of API to use to make request. Default is "v1".
+#' @param base_url (optional) - URL to BambooHR API. Default is "https://api.bamboohr.com/api/gateway.php".
 #'
 #' @return A [httr::response()] object where the content is a JSON format that contains a list,
 #'  sorted by date, of employees who will be out, and company holidays, for a period of time.
@@ -106,7 +110,8 @@ get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NU
 #' @references \url{https://documentation.bamboohr.com/reference/get-a-list-of-whos-out-1}
 #' @md
 
-get_whos_out <- function(start = "", end = "", url_args = NULL) {
+get_whos_out <- function(start = "", end = "", api_version = "v1",
+                         base_url = "https://api.bamboohr.com/api/gateway.php") {
   invalid_start <- invalid_end <- FALSE
   if (!(start == "")) {
     invalid_start <- is.na(lubridate::parse_date_time(start, orders = "ymd", quiet = TRUE))
@@ -119,11 +124,9 @@ get_whos_out <- function(start = "", end = "", url_args = NULL) {
 
   query <- list(start = start, end = end)
 
-  if (!is.null(url_args)){
-    stopifnot(is.list(url_args))
-  }else{url_args <- list()}
 
-  url <- do.call(build_url, url_args)
+  url <- build_url(api_version = api_version,
+                   base_url = base_url)
   url <- glue::glue("{url}/time_off/whos_out") |>
     httr::modify_url(query = query)
   response <- get_request(url)
