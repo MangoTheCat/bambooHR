@@ -4,34 +4,30 @@
 \alias{get_request}
 \title{Bamboo HR API get request wrapper}
 \usage{
-get_request(
- 
-    url = "https://api.bamboohr.com/api/gateway.php/propellerpdx/v1/employees/all/tables/compensation",
-  key = keys$BAMBOO_KEY,
-  verbose
-)
+get_request(url, key = .get_api_key(), verbose = FALSE)
 }
 \arguments{
 \item{url}{Character url of the get request.}
 
-\item{key}{Character key. Register in your account, see \href{https://documentation.bamboohr.com/docs#section-authentication}{authentication} for details.}
+\item{key}{Character api key for bambooHR. Register in your account, see \href{https://documentation.bamboohr.com/docs#section-authentication}{authentication} for details.
+Default value is obtained from \code{options("bambooHR.api_key")}. This can also be set in the config file using \code{config_setup("api key", "company domain")}.}
 
-\item{verbose}{Logical scalar. Should the function provide verbose messaging back on each step?}
+\item{verbose}{Logical. Should the function provide verbose messaging back on each step?}
 }
 \value{
-response object
+A \code{\link[httr:response]{httr::response()}} object.
 }
 \description{
-Submits get requests to the Bamboo API
+Submits get requests to the Bamboo API.
 }
 \examples{
-
+\dontrun{
+res <- get_request("https://api.bamboohr.com/api/gateway.php/your_company/v1/employees/0/")
+httr::content(res, "text")
+}
 
 }
 \references{
 \url{https://github.com/r-lib/httr}
 \url{https://curl.haxx.se/libcurl/c/CURLOPT_HTTP_VERSION.html}
-}
-\author{
-Mark Druffel, \email{mdruffel@propellerpdx.com}
 }
