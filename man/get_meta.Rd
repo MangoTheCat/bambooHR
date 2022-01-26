@@ -2,22 +2,31 @@
 % Please edit documentation in R/get_meta.R
 \name{get_meta}
 \alias{get_meta}
-\title{Bamboo API get request wrapper for BambooHR tables}
+\title{Bamboo API get request wrapper for BambooHR Account Information}
 \usage{
-get_meta(data)
+get_meta(query, url_args = NULL)
 }
 \arguments{
-\item{data}{fields, tables, lists, users, time_off/types, time_off/policies}
+\item{query}{One of: "fields", "tables", "lists", "users", "time_off/types", "time_off/policies".}
 
-\item{...}{tbd}
+\item{url_args}{(optional) - A list of named or unnamed arguments to be passed to build_URL function.}
 }
 \value{
-tbl_df
+data.frame
 }
 \description{
-Submits a get request to retrieve a specified table from the system, valid tables are retreived from the
-meta data API
+Submits a get request to retrieve account meta information that
+ can be used to help discover the types of field/table ect. available in your account
+devto
+}
+\examples{
+\dontrun{
+res <- get_meta("fields")
+
+res <- get_meta("users", list(company_domain = "CompanyB"))
+}
+
 }
 \references{
-\url{https://documentation.bamboohr.com/reference#get-employee-table-row-1}
+\url{https://documentation.bamboohr.com/reference/account-information-1}
 }
