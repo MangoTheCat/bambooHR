@@ -19,9 +19,7 @@
 #' \dontrun{
 #' # find valid types
 #'
-#' type_list <- get_timeoff_types()
-#' out <- httr::content(type_list, "parsed")
-#' types <- sapply(out$timeOffTypes, "[[", "id")
+#' types <- get_timeoff_types()
 #'
 #' res <- get_timeoff("2022-01-01", "2022-02-01", type = types)
 #' httr::content(res, "parsed")
@@ -149,6 +147,7 @@ get_whos_out <- function(start = "", end = "", api_version = "v1",
 #' @md
 get_timeoff_types <- function() {
   response <- get_meta("time_off/types")
+  return(response[["timeOffTypes.id"]])
 }
 
 
