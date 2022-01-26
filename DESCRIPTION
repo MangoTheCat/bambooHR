@@ -16,7 +16,13 @@ Imports:
     glue,
     httr,
     curl,
-    jsonlite
+    jsonlite,
+    magrittr,
+    dplyr,
+    purrr,
+    tibble,
+    tidyr,
+    lubridate
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
