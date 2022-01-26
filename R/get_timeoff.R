@@ -11,22 +11,19 @@
 #' @param base_url (optional) - URL to BambooHR API. Default is "https://api.bamboohr.com/api/gateway.php".
 #'
 #' @references \url{https://documentation.bamboohr.com/reference/time-off-1}
-#' @return A [httr::response()] object.
+#' @return A [tibble::tibble()] object.
 #' @md
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' # find valid types
-#'
+#' # find valid valid types
 #' types <- get_timeoff_types()
-#'
 #' res <- get_timeoff("2022-01-01", "2022-02-01", type = types)
-#' httr::content(res, "parsed")
 #'
+#' res2 <- get_timeoff("2022-01-01", "2022-02-01", action = "approve", status = c("approved", "denied"))
 #'
-#' res <- get_timeoff("2022-01-01", "2022-02-01", action = "approve", status = c("approved", "denied"))
-#' httr::content(res, "parsed")
+#' res3 <- get_timeoff("2022-01-01", "2022-02-01", employee_id = "4")
 #'
 #' }
 get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NULL, type = NULL,
@@ -66,7 +63,7 @@ get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NU
     employee_id = employee_id,
     type = type,
     status = status
-  ) |> purrr::discard(is.null)
+  ) %>%  purrr::discard(is.null)
 
   # convert type and status to comma separated strings
   if (!is.null(query$status)) {
@@ -81,6 +78,11 @@ get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NU
   url <- glue::glue("{url}/time_off/requests") |>
     httr::modify_url(query = query)
   response <- get_request(url)
+
+  return(
+    response %>% httr::content(., as='text', type='json', encoding='UTF-8') %>%
+      jsonlite::fromJSON(., simplifyDataFrame=TRUE) %>% tibble::tibble(.)
+  )
 }
 
 #' Get a list of Who's Out
@@ -90,20 +92,16 @@ get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NU
 #' @param api_version (optional) - Version of API to use to make request. Default is "v1".
 #' @param base_url (optional) - URL to BambooHR API. Default is "https://api.bamboohr.com/api/gateway.php".
 #'
-#' @return A [httr::response()] object where the content is a JSON format that contains a list,
-#'  sorted by date, of employees who will be out, and company holidays, for a period of time.
+#' @return A [tibble::tibble()] object.
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' res <- get_whos_out()
-#' httr::content(res, "parsed")
 #'
-#' res <- get_whos_out(start = "2022-01-12")
-#' httr::content(res, "parsed")
+#' res2 <- get_whos_out(start = "2022-01-12")
 #'
-#' res <- get_whos_out(start = "2022-01-01", end = "2022-04-01")
-#' httr::content(res, "parsed")
+#' res3 <- get_whos_out(start = "2022-01-01", end = "2022-04-01")
 #' }
 #' @references \url{https://documentation.bamboohr.com/reference/get-a-list-of-whos-out-1}
 #' @md
@@ -125,29 +123,34 @@ get_whos_out <- function(start = "", end = "", api_version = "v1",
 
   url <- build_url(api_version = api_version,
                    base_url = base_url)
-  url <- glue::glue("{url}/time_off/whos_out") |>
+  url <- glue::glue("{url}/time_off/whos_out") %>%
     httr::modify_url(query = query)
   response <- get_request(url)
+
+  return(
+    response %>% httr::content(., as='text', type='json', encoding='UTF-8') %>%
+      jsonlite::fromJSON(., simplifyDataFrame=TRUE) %>% tibble::tibble(.)
+  )
 }
 
 #' Get Time Off Types
 #'
 #' Wrapper to get_meta function that returns time off types
 #'
-#' @return A [httr::response()] object where the content is a JSON format that contains the
-#' list of time off types the user has permissions on.
+#' @return A vector of type ids
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' res <- get_timeoff_types()
-#' httr::content(res, "parsed")
+#' types <- get_timeoff_types()
 #' }
 #' @references \url{https://documentation.bamboohr.com/reference/get-time-off-types}
 #' @md
 get_timeoff_types <- function() {
   response <- get_meta("time_off/types")
-  return(response[["timeOffTypes.id"]])
+  return(
+    response %>% dplyr::pull(id) %>% na.omit()
+  )
 }
 
 
@@ -167,6 +170,8 @@ get_timeoff_types <- function() {
 #' }
 #' @references \url{https://documentation.bamboohr.com/reference/get-time-off-policies}
 #' @md
+#'
+#' @note Currently do not have the permissions to test this so returning the raw response object
 #'
 get_timeoff_policies <- function() {
   response <- get_meta("time_off/policies")
