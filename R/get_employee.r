@@ -17,6 +17,9 @@
 #' between multiple company domains and API keys. Note that this will set the
 #' config file for future calls.
 #'
+#' @param only_current Setting to false will return future dated values from
+#' history table fields.
+#'
 #' @return List. If \code{id} is given then a list of the fields and their values. If
 #' \code{id = 'directory'} then a list of (1) the available fields dataframe and (2)
 #' the directory dataframe.
@@ -26,7 +29,8 @@
 #' @export
 get_employee <- function(
   id = "directory", fields = NULL,
-  config = .get_config_file()
+  config = .get_config_file(),
+  only_current = FALSE
 ) {
 
   # Define endpoint
@@ -41,7 +45,8 @@ get_employee <- function(
   # If fields are given, encode special characters to be URL-friendly
   # Also give fields in specified way (comma-separated list)
   if (!rlang::is_null(fields)) {
-    query <- list(fields = URLencode(paste(fields, collapse = ",")))
+    query <- list(fields = URLencode(paste(fields, collapse = ",")),
+                  onlyCurrent = URLencode(stringr::str_to_lower(only_current)))
   } else {
     query <- NULL
   }
