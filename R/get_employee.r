@@ -24,7 +24,10 @@
 #' \code{id = 'directory'} then a list of (1) the available fields dataframe and (2)
 #' the directory dataframe.
 #'
-#' @author Mark Druffel, \email{mdruffel@propellerpdx.com}
+#' @examples \dontrun{
+#' get_employee()
+#' get_employee(0, fields = c("firstName", "lastName"))
+#' }
 #'
 #' @export
 get_employee <- function(
