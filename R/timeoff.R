@@ -79,7 +79,8 @@ get_timeoff_requests <- function(start, end, id = NULL, action = c("view", "appr
       httr::content(as='text', type='json', encoding='UTF-8') %>%
       jsonlite::fromJSON(simplifyDataFrame=TRUE) %>%
       tibble::tibble() %>%
-      tidyr::unnest(tidyr::everything(), names_sep = "_")
+      tidyr::unnest(tidyr::everything(), names_sep = "_") %>%
+      janitor::clean_names()
   )
 }
 
@@ -128,7 +129,8 @@ get_whos_out <- function(start = "", end = "", api_version = "v1") {
     response %>%
       httr::content(as='text', type='json', encoding='UTF-8') %>%
       jsonlite::fromJSON(simplifyDataFrame=TRUE) %>%
-      tibble::tibble()
+      tibble::tibble() %>%
+      janitor::clean_names()
   )
 }
 
