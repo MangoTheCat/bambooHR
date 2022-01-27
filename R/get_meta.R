@@ -5,7 +5,6 @@
 #' devto
 #' @param query One of: "fields", "tables", "lists", "users", "time_off/types", "time_off/policies".
 #' @param api_version (optional) - Version of API to use to make request. Default is "v1".
-#' @param base_url (optional) - URL to BambooHR API. Default is "https://api.bamboohr.com/api/gateway.php".
 #'
 #' @return A [tibble::tibble()] object.
 #' @md
@@ -23,8 +22,7 @@ get_meta <- function(query = c(
                        "fields", "tables", "lists", "users",
                        "time_off/types", "time_off/policies"
                      ),
-                     api_version = "v1",
-                     base_url = "https://api.bamboohr.com/api/gateway.php") {
+                     api_version = "v1") {
   stopifnot(query %in% c(
     "fields", "tables", "lists", "users",
     "time_off/types", "time_off/policies"
@@ -35,8 +33,7 @@ get_meta <- function(query = c(
 
 
   url <- build_url(
-    api_version = api_version,
-    base_url = base_url
+    api_version = api_version
   )
   url <- glue::glue("{url}/meta/{query}")
 
