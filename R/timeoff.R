@@ -18,11 +18,11 @@
 #' \dontrun{
 #' # find valid valid types
 #' types <- get_timeoff_types()
-#' res <- get_timeoff("2022-01-01", "2022-02-01", type = types)
+#' res <- get_timeoff_requests("2022-01-01", "2022-02-01", type = types)
 #'
-#' res2 <- get_timeoff("2022-01-01", "2022-02-01", action = "approve", status = c("approved", "denied"))
+#' res2 <- get_timeoff_requests("2022-01-01", "2022-02-01", action = "approve", status = c("approved", "denied"))
 #'
-#' res3 <- get_timeoff("2022-01-01", "2022-02-01", employee_id = "4")
+#' res3 <- get_timeoff_requests("2022-01-01", "2022-02-01", employee_id = "4")
 #'
 #' }
 get_timeoff_requests <- function(start, end, id = NULL, action = c("view", "approve"), employee_id = NULL, type = NULL,
