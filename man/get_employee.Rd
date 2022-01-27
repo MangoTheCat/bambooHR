@@ -7,7 +7,9 @@
 get_employee(
   id = "directory",
   fields = NULL,
-  config = "~/.bambooHR_user_config.json"
+  only_current = FALSE,
+  verbose = FALSE,
+  force_df = FALSE
 )
 }
 \arguments{
@@ -15,14 +17,21 @@ get_employee(
 employees, along with a table of possible fields. The special employee ID of
 zero (0) means to use the employee ID associated with the API key (if any).}
 
-\item{fields}{Character vector of fields to return. To see available fields, run
-\code{get_employee()}.}
+\item{fields}{Character vector of fields to return. To see all available fields,
+see the column names of \code{get_employee()}.}
 
-\item{config}{File path to config file. This may be useful if you want to swap
-between multiple company domains and API keys. Note that this will}
+\item{only_current}{Setting to false will return future dated values from
+history table fields.}
+
+\item{verbose}{Logical, default FALSE. Whether to return the fields dataframe
+when [id = "directory].}
 }
 \value{
-response object
+If \code{id} is given then a list of the fields and their values. If
+[force_df = TRUE] then this is converted to a dataframe. If
+\code{id = 'directory'} (the default) then the directory dataframe is returned.
+However, if [verbose = TRUE] then this will be returned in a list along with
+the fields dataframe.
 }
 \description{
 This is suitable for getting basic employee information, including current
@@ -30,6 +39,10 @@ values for fields that are part of a historical table, like job title,
 or compensation information. See the fields endpoint for a list of possible
  fields.
 }
-\author{
-Mark Druffel, \email{mdruffel@propellerpdx.com}
+\examples{
+\dontrun{
+get_employee()
+get_employee(0, fields = c("firstName", "lastName"))
+}
+
 }

@@ -6,23 +6,25 @@
 #'  fields.
 #'
 #'
-#' @param id Employee ID (character or numeric). The default of "directory" will give a directory of all
-#' employees, along with a table of possible fields. The special employee ID of
-#' zero (0) means to use the employee ID associated with the API key (if any).
+#' @param id Employee IDs (character or numeric). The default of "directory"
+#' will give a directory of all employees, along with a table of possible fields.
+#' The special employee ID of zero (0) means to use the employee ID associated
+#' with the API key (if any).
 #'
-#' @param fields Character vector of fields to return. To see available fields, run
-#' \code{get_employee()}.
-#'
-#' @param config File path to config file. This may be useful if you want to swap
-#' between multiple company domains and API keys. Note that this will set the
-#' config file for future calls.
+#' @param fields Character vector of fields to return. To see all available fields,
+#' see the column names of \code{get_employee()}.
 #'
 #' @param only_current Setting to false will return future dated values from
 #' history table fields.
 #'
-#' @return List. If \code{id} is given then a list of the fields and their values. If
-#' \code{id = 'directory'} then a list of (1) the available fields dataframe and (2)
-#' the directory dataframe.
+#' @param verbose Logical, default FALSE. Whether to return the fields dataframe
+#' when [id = "directory].
+#'
+#' @return If \code{id} is given then a list of the fields and their values. If
+#' [force_df = TRUE] then this is converted to a dataframe. If
+#' \code{id = 'directory'} (the default) then the directory dataframe is returned.
+#' However, if [verbose = TRUE] then this will be returned in a list along with
+#' the fields dataframe.
 #'
 #' @examples \dontrun{
 #' get_employee()
@@ -31,9 +33,11 @@
 #'
 #' @export
 get_employee <- function(
-  id = "directory", fields = NULL,
-  config = .get_config_file(),
-  only_current = FALSE
+  id = "directory",
+  fields = NULL,
+  only_current = FALSE,
+  verbose = FALSE,
+  api_version = "v1"
 ) {
 
   # Define endpoint
@@ -54,29 +58,38 @@ get_employee <- function(
     query <- NULL
   }
 
-  # Use given config file
-  .parse_config(config)
-
   # Build up URL with query
-  url <- build_url()
-  url <- glue::glue("{url}/{api}/{id}")
-  url <- httr::modify_url(url = url, query = query)
+  urls <- purrr::map(id, function(id) {
+    url <- build_url(api_version = api_version)
+    url <- glue::glue("{url}/{api}/{id}")
+    url <- httr::modify_url(url = url, query = query)
+    url
+  })
 
-  # Get and parse response
-  response <- get_request(url) %>%
-    httr::content("parsed")
 
-  # Convert response to a dataframe if using full directory
-  if (id == "directory") {
-    response <- response %>%
-      purrr::map(
-        ~ .x %>%
-          purrr::transpose() %>%
-          tibble::as_tibble() %>%
-          tidyr::unnest(cols = everything())
+  # Get and parse responses
+  responses <- purrr::map(urls, function(url) {
+    get_request(url) %>%
+      httr::content("parsed")
+  })
+
+  # Convert response to a dataframe
+  if (identical(id, "directory")) {
+    responses <- responses %>%
+      purrr::flatten() %>%
+      purrr::map(~ .x %>%
+                   purrr::transpose() %>%
+                   tibble::as_tibble() %>%
+                   tidyr::unnest(cols = everything())
+      ) %>%
+      purrr::when(!verbose ~ .[["employees"]],
+                  ~ .
       )
+  } else {
+    responses <- responses %>%
+      dplyr::bind_rows()
   }
 
-  return(response)
+  return(responses)
 
 }
