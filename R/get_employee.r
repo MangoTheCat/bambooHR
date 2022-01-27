@@ -29,6 +29,7 @@
 #' @examples \dontrun{
 #' get_employee()
 #' get_employee(0, fields = c("firstName", "lastName"))
+#' get_employee(c(0, 1, 2), fields = c("firstName", "lastName", "jobTitle"))
 #' }
 #'
 #' @export
