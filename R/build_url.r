@@ -27,3 +27,4 @@ build_url <- function(company_domain = .get_company_name(),
   url <- glue::glue("{base_url}/{company_domain}/{api_version}")
   return(url)
 }
+
