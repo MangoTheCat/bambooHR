@@ -8,7 +8,6 @@
 #' @param type (optional) - A vector of time off types IDs to include limit the response to. Default is all types are included.
 #' @param status (optional) - A vector of request status values to include. Legal values are "approved", "denied", "superseded", "requested", "canceled". Default is all status types.
 #' @param api_version (optional) - Version of API to use to make request. Default is "v1".
-#' @param base_url (optional) - URL to BambooHR API. Default is "https://api.bamboohr.com/api/gateway.php".
 #'
 #' @references \url{https://documentation.bamboohr.com/reference/time-off-1}
 #' @return A [tibble::tibble()] object.
@@ -26,11 +25,11 @@
 #' res3 <- get_timeoff("2022-01-01", "2022-02-01", employee_id = "4")
 #'
 #' }
-get_timeoff <- function(start, end, id = NULL, action = c("view", "approve"), employee_id = NULL, type = NULL,
+get_timeoff_requests <- function(start, end, id = NULL, action = c("view", "approve"), employee_id = NULL, type = NULL,
                         status = c("approved", "denied", "superseded", "requested", "canceled"),
-                        api_version = "v1",
-                        base_url = "https://api.bamboohr.com/api/gateway.php") {
+                        api_version = "v1") {
 
+  # Type checks and Error handling ---
   invalid_start <- is.na(lubridate::parse_date_time(start, orders = "ymd", quiet = TRUE))
   invalid_end <- is.na(lubridate::parse_date_time(end, orders = "ymd", quiet = TRUE))
 
@@ -52,6 +51,7 @@ get_timeoff <- function(start, end, id = NULL, action = c("view", "approve"), em
 
   stopifnot(all(status %in% c("approved", "denied", "superseded", "requested", "canceled")))
 
+  # construct api query from provided arguments
   query <- list(
     start = start,
     end = end,
@@ -62,7 +62,7 @@ get_timeoff <- function(start, end, id = NULL, action = c("view", "approve"), em
     status = status
   ) %>%  purrr::discard(is.null)
 
-  # convert type and status to comma separated strings
+  # convert type and status to comma separated strings if present in query
   if (!is.null(query$status)) {
     query$status <- paste(status, collapse = ",")
   }
@@ -70,17 +70,19 @@ get_timeoff <- function(start, end, id = NULL, action = c("view", "approve"), em
     query$type <- paste(type_coerced, collapse = ",")
   }
 
-  url <- build_url(api_version = api_version,
-                   base_url = base_url)
-  url <- glue::glue("{url}/time_off/requests") |>
+  # build url together with arguments and make request
+  url <- build_url(api_version = api_version)
+  url <- glue::glue("{url}/time_off/requests")  %>%
     httr::modify_url(query = query)
   response <- get_request(url)
 
+  # convert json response into a tibble
   return(
     response %>%
       httr::content(as='text', type='json', encoding='UTF-8') %>%
       jsonlite::fromJSON(simplifyDataFrame=TRUE) %>%
-      tibble::tibble()
+      tibble::tibble() %>%
+      tidyr::unnest(tidyr::everything(),names_sep = "_")
   )
 }
 
@@ -89,7 +91,6 @@ get_timeoff <- function(start, end, id = NULL, action = c("view", "approve"), em
 #' @param start (optional) - a date in the form YYYY-MM-DD - defaults to the current date.
 #' @param end  (optional) - a date in the form YYYY-MM-DD - defaults to 14 days from the start date.
 #' @param api_version (optional) - Version of API to use to make request. Default is "v1".
-#' @param base_url (optional) - URL to BambooHR API. Default is "https://api.bamboohr.com/api/gateway.php".
 #'
 #' @return A [tibble::tibble()] object.
 #' @export
@@ -105,8 +106,8 @@ get_timeoff <- function(start, end, id = NULL, action = c("view", "approve"), em
 #' @references \url{https://documentation.bamboohr.com/reference/get-a-list-of-whos-out-1}
 #' @md
 
-get_whos_out <- function(start = "", end = "", api_version = "v1",
-                         base_url = "https://api.bamboohr.com/api/gateway.php") {
+get_whos_out <- function(start = "", end = "", api_version = "v1") {
+  # check inputs are valid
   invalid_start <- invalid_end <- FALSE
   if (!(start == "")) {
     invalid_start <- is.na(lubridate::parse_date_time(start, orders = "ymd", quiet = TRUE))
@@ -119,13 +120,13 @@ get_whos_out <- function(start = "", end = "", api_version = "v1",
 
   query <- list(start = start, end = end)
 
-
-  url <- build_url(api_version = api_version,
-                   base_url = base_url)
+  # send request to api with user query
+  url <- build_url(api_version = api_version)
   url <- glue::glue("{url}/time_off/whos_out") %>%
     httr::modify_url(query = query)
   response <- get_request(url)
 
+  # convert response to tibble
   return(
     response %>%
       httr::content(as='text', type='json', encoding='UTF-8') %>%
