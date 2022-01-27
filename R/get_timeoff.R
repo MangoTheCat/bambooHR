@@ -26,7 +26,7 @@
 #' res3 <- get_timeoff("2022-01-01", "2022-02-01", employee_id = "4")
 #'
 #' }
-get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NULL, type = NULL,
+get_timeoff <- function(start, end, id = NULL, action = c("view", "approve"), employee_id = NULL, type = NULL,
                         status = c("approved", "denied", "superseded", "requested", "canceled"),
                         api_version = "v1",
                         base_url = "https://api.bamboohr.com/api/gateway.php") {
@@ -40,9 +40,6 @@ get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NU
     id <- as.integer(id)
     stopifnot(!is.na(id))
   }
-
-  action_valid <- (action == "view" | action == "approve")
-  if (!all(action_valid)) stop("action must be one of: \"view\" or \"approve\".")
 
   if (!is.null(employee_id)) {
     stopifnot(is.character(employee_id))
@@ -80,8 +77,10 @@ get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NU
   response <- get_request(url)
 
   return(
-    response %>% httr::content(., as='text', type='json', encoding='UTF-8') %>%
-      jsonlite::fromJSON(., simplifyDataFrame=TRUE) %>% tibble::tibble(.)
+    response %>%
+      httr::content(as='text', type='json', encoding='UTF-8') %>%
+      jsonlite::fromJSON(simplifyDataFrame=TRUE) %>%
+      tibble::tibble()
   )
 }
 
@@ -128,8 +127,10 @@ get_whos_out <- function(start = "", end = "", api_version = "v1",
   response <- get_request(url)
 
   return(
-    response %>% httr::content(., as='text', type='json', encoding='UTF-8') %>%
-      jsonlite::fromJSON(., simplifyDataFrame=TRUE) %>% tibble::tibble(.)
+    response %>%
+      httr::content(as='text', type='json', encoding='UTF-8') %>%
+      jsonlite::fromJSON(simplifyDataFrame=TRUE) %>%
+      tibble::tibble()
   )
 }
 
