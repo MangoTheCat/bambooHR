@@ -1,21 +1,38 @@
-#' @title Bamboo HR API get request wrapper
+#' @title Retrieve An Employee File
 #'
-#' @description  Submits get requests to the Bamboo API
+#' @description `get_employee_file` takes file_id, (string), id (string) and
+#' url_args (list) and then requests
+#' and returns data about the corresponding file from the BambooHR API.
 #'
-#' @param id employee ID. The special employee ID of zero (0) means to use the employee ID associated with the API key (if any).
-#' @param file_id  vector of values
-#' @param verbose Logical scalar. Should the function provide verbose messaging back on each step? - (XL) Sounds good
-#' @param ... tbd
+#' @param url_args A list containing the required arguments to call `build_url`.
+#' company domain (string), api version (string), and base_url (string).
+#' @param file_id The file id (string) of the file to be returned.
+#' @param id The employee id (string) of the employee.
 #'
-#' @return response object
+#' @return returns a response object.
+#'
+#' @examples
+#' response <- get_employee_file(
+#' id = 0,
+#' file_id = "480",
+#' url_args = list("ascent", "v1",
+#' "https://api.bamboohr.com/api/gateway.php")
+#' )
+#'
 #' @author Mark Druffel, \email{mdruffel@propellerpdx.com}
-get_employee_file <- function(id, file_id, verbose, ...){
-  dots <- rlang::list2(...)
-  #Default to view if a file_id is not specified, this provides all files the employee has
+#'
+get_employee_file <- function(id, file_id,
+                             url_args = NULL){
+  if (!is.null(url_args)) {
+    stopifnot(is.list(url_args))
+  } else {
+    url_args <- list()
+  }url <- do.call(build_url, url_args)
+  # default to 0 if employee id is not specified
+  id <- rlang::maybe_missing(id, default = "0")
+  # Default to directory if an individual employee is not specified
   file_id <- rlang::maybe_missing(file_id, default = "view")
-  url <- build_url(company_domain = dots$company_domain,
-                   api_version = dots$api_version,
-                   base_url = dots$base_url)
+  # Glues "/files/file_id" to url returned from build_url call
   url <- glue::glue("{url}/employees/{id}/files/{file_id}")
   response <- get_request(url)
   return(response)
