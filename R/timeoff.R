@@ -64,13 +64,10 @@ get_timeoff_requests <- function(start, end, id = NULL, action = c("view", "appr
     status = status
   ) %>%  purrr::discard(is.null)
 
-  # convert type and status to comma separated strings if present in query
-  if (!is.null(query$status)) {
-    query$status <- paste(status, collapse = ",")
-  }
-  if (!is.null(query$type)) {
-    query$type <- paste(type_coerced, collapse = ",")
-  }
+  # convert parameters with length > 1 to comma separated strings if present in query
+  query <- query %>%
+    purrr::map(~ paste(.x, collapse = ","))
+
 
   # build url together with arguments and make request
   url <- build_url(api_version = api_version)
@@ -84,7 +81,8 @@ get_timeoff_requests <- function(start, end, id = NULL, action = c("view", "appr
       httr::content(as='text', type='json', encoding='UTF-8') %>%
       jsonlite::fromJSON(simplifyDataFrame=TRUE) %>%
       tibble::tibble() %>%
-      tidyr::unnest(tidyr::everything(),names_sep = "_")
+      tidyr::unnest(tidyr::everything(), names_sep = "_") %>%
+      janitor::clean_names()
   )
 }
 
@@ -133,7 +131,8 @@ get_whos_out <- function(start = "", end = "", api_version = "v1") {
     response %>%
       httr::content(as='text', type='json', encoding='UTF-8') %>%
       jsonlite::fromJSON(simplifyDataFrame=TRUE) %>%
-      tibble::tibble()
+      tibble::tibble() %>%
+      janitor::clean_names()
   )
 }
 
@@ -177,4 +176,6 @@ get_timeoff_types <- function() {
 #'
 get_timeoff_policies <- function() {
   response <- get_meta("time_off/policies")
+
+  response
 }
