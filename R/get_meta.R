@@ -1,12 +1,14 @@
-get_meta <- function(query = c("fields", "tables", "lists", "users", "time_off/types", "time_off/policies"), url_args = NULL) {
+get_meta <- function(query = c("fields", "tables", "lists", "users", "time_off/types", "time_off/policies"),
+                     url_args = NULL) {
   if (!is.null(url_args)) {
     stopifnot(is.list(url_args))
   }
 
+  # Define query argument as default, if not given
+  query <- match.arg(query)
 
-
+  # Error handling
   if (length(query) > 1) stop('query must be one of c("fields", "tables", "lists", "users", "time_off/types", "time_off/policies")')
-
 
 
   if (!is.null(url_args)) {

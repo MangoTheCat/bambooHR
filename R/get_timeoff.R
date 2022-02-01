@@ -30,9 +30,9 @@
 #' res <- get_timeoff("2022-01-01", "2022-02-01", url_args = list(company_domain = "company"))
 #' httr::content(res, "parsed")
 #' }
-get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NULL, type = NULL,
-                        status = c("approved", "denied", "superseded", "requested", "canceled"),
-                        url_args = NULL) {
+get_timeoff_requests <- function(start, end, id = NULL, action = c("view", "approve"), employee_id = NULL, type = NULL,
+                                 status = c("approved", "denied", "superseded", "requested", "canceled"),
+                                 api_version = "v1") {
 
   invalid_start <- is.na(lubridate::parse_date_time(start, orders = "ymd", quiet = TRUE))
   invalid_end <- is.na(lubridate::parse_date_time(end, orders = "ymd", quiet = TRUE))
