@@ -4,25 +4,22 @@
 \alias{get_employee_file}
 \title{Bamboo HR API get request wrapper}
 \usage{
-get_employee_file(id, file_id, ...)
+get_employee_file(id, file_id, verbose, ...)
 }
 \arguments{
 \item{id}{employee ID. The special employee ID of zero (0) means to use the employee ID associated with the API key (if any).}
 
 \item{file_id}{vector of values}
 
-\item{verbose}{Logical scalar. Should the function provide verbose messaging back on each step?}
+\item{verbose}{Logical scalar. Should the function provide verbose messaging back on each step? - (XL) Sounds good}
+
+\item{...}{tbd}
 }
 \value{
 response object
 }
 \description{
 Submits get requests to the Bamboo API
-}
-\examples{
-keys <- globalEntry::get_keys()
-response <- get_employees(id = 0, fields = c("firstName","lastName"))
-
 }
 \author{
 Mark Druffel, \email{mdruffel@propellerpdx.com}

@@ -16,6 +16,8 @@
   if (is.null(conf[["api_key"]])) {
     warning("Please check that the 'api_key' value is not missing or empty: ", config, call.=FALSE, immediate.=TRUE)
   }
+
+  options("bambooHR.config_file" = config)
   options("bambooHR.api_key" = conf[["api_key"]])
   options("bambooHR.company_name" = conf[["company_name"]])
 }
