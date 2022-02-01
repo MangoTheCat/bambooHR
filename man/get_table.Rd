@@ -4,7 +4,7 @@
 \alias{get_table}
 \title{Bamboo API get request wrapper for BambooHR tables}
 \usage{
-get_table(table, id = "all", ...)
+get_table(table, id, since, ...)
 }
 \arguments{
 \item{user}{Bamboo api user id, register in Bamboo "API Keys"}
@@ -21,15 +21,6 @@ tbl_df
 \description{
 Submits a get request to retrieve a specified table from the system, valid tables are retreived from the
 meta data API
-}
-\examples{
-
-user <- 'your_api_user'
-password <- 'your_password'
-verbose <- 'your_preference'
-table_alias <- 'table_alias'
-table_data <- get_table(table_alias=table_alias, user=user, password=password, verbose=verbose)
-
 }
 \references{
 \url{https://documentation.bamboohr.com/reference#get-employee-table-row-1}
