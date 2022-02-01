@@ -16,10 +16,22 @@
     <loc>https://mangothecat.github.io/bambooHR/index.html</loc>
   </url>
   <url>
+    <loc>https://mangothecat.github.io/bambooHR/reference/as_ISO8601_character.html</loc>
+  </url>
+  <url>
     <loc>https://mangothecat.github.io/bambooHR/reference/build_url.html</loc>
   </url>
   <url>
+    <loc>https://mangothecat.github.io/bambooHR/reference/config_setup.html</loc>
+  </url>
+  <url>
+    <loc>https://mangothecat.github.io/bambooHR/reference/get_company_file.html</loc>
+  </url>
+  <url>
     <loc>https://mangothecat.github.io/bambooHR/reference/get_employee_file.html</loc>
+  </url>
+  <url>
+    <loc>https://mangothecat.github.io/bambooHR/reference/get_employee_file_meta.html</loc>
   </url>
   <url>
     <loc>https://mangothecat.github.io/bambooHR/reference/get_employees.html</loc>
@@ -32,6 +44,18 @@
   </url>
   <url>
     <loc>https://mangothecat.github.io/bambooHR/reference/get_table.html</loc>
+  </url>
+  <url>
+    <loc>https://mangothecat.github.io/bambooHR/reference/get_timeoff_policies.html</loc>
+  </url>
+  <url>
+    <loc>https://mangothecat.github.io/bambooHR/reference/get_timeoff_requests.html</loc>
+  </url>
+  <url>
+    <loc>https://mangothecat.github.io/bambooHR/reference/get_timeoff_types.html</loc>
+  </url>
+  <url>
+    <loc>https://mangothecat.github.io/bambooHR/reference/get_whos_out.html</loc>
   </url>
   <url>
     <loc>https://mangothecat.github.io/bambooHR/reference/index.html</loc>
