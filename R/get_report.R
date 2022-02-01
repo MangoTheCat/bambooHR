@@ -14,7 +14,7 @@
 #' @param only_current Logical default [TRUE]. Should the report be limited
 #' to only current employees.
 #'
-#' @inheritParams get_employees
+#' @inheritParams get_employee
 #'
 #' @return Currently the function simply returns a parsed response object.
 #'

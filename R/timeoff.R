@@ -7,46 +7,40 @@
 #' @param employee_id  (optional) Character - A particular employee ID to limit the response to.
 #' @param type (optional) - A vector of time off types IDs to include limit the response to. Default is all types are included.
 #' @param status (optional) - A vector of request status values to include. Legal values are "approved", "denied", "superseded", "requested", "canceled". Default is all status types.
-#' @param url_args (optional) - A list of named or unnamed arguments to be passed to build_URL function.
+#' @param api_version (optional) - Version of API to use to make request. Default is "v1".
 #'
 #' @references \url{https://documentation.bamboohr.com/reference/time-off-1}
-#' @return A [httr::response()] object.
+#' @return A [tibble::tibble()] object.
 #' @md
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' # find valid types
-#'
+#' # find valid valid types
 #' types <- get_timeoff_types()
+#' type_ids <- types %>% tidyr::drop_na(id) %>%  dplyr::pull(id)
 #'
-#' res <- get_timeoff("2022-01-01", "2022-02-01", type = types)
-#' httr::content(res, "parsed")
+#' res <- get_timeoff_requests("2022-01-01", "2022-02-01", type = type_ids)
 #'
+#' res2 <- get_timeoff_requests("2022-01-01", "2022-02-01", action = "approve", status = c("approved", "denied"))
 #'
-#' res <- get_timeoff("2022-01-01", "2022-02-01", action = "approve", status = c("approved", "denied"))
-#' httr::content(res, "parsed")
+#' res3 <- get_timeoff_requests("2022-01-01", "2022-02-01", employee_id = "4")
 #'
-#' res <- get_timeoff("2022-01-01", "2022-02-01", url_args = list(company_domain = "company"))
-#' httr::content(res, "parsed")
 #' }
-get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NULL, type = NULL,
+get_timeoff_requests <- function(start, end, id = NULL, action = c("view", "approve"), employee_id = NULL, type = NULL,
                         status = c("approved", "denied", "superseded", "requested", "canceled"),
-                        url_args = NULL) {
+                        api_version = "v1") {
 
+  # Type checks and Error handling ---
   invalid_start <- is.na(lubridate::parse_date_time(start, orders = "ymd", quiet = TRUE))
   invalid_end <- is.na(lubridate::parse_date_time(end, orders = "ymd", quiet = TRUE))
 
   if (invalid_start | invalid_end) stop("Invalid date. Date formats must be YYYY-MM-DD")
 
-
   if (!is.null(id)) {
     id <- as.integer(id)
     stopifnot(!is.na(id))
   }
-
-  action_valid <- (action == "view" | action == "approve")
-  if (!all(action_valid)) stop("action must be one of: \"view\" or \"approve\".")
 
   if (!is.null(employee_id)) {
     stopifnot(is.character(employee_id))
@@ -59,52 +53,61 @@ get_timeoff <- function(start, end, id = NULL, action = "view", employee_id = NU
 
   stopifnot(all(status %in% c("approved", "denied", "superseded", "requested", "canceled")))
 
-  query <- as.list(match.call()[-1])
+  # construct api query from provided arguments
+  query <- list(
+    start = start,
+    end = end,
+    id = id,
+    action = action,
+    employee_id = employee_id,
+    type = type,
+    status = status
+  ) %>%  purrr::discard(is.null)
 
-  # convert type and status to comma separated strings
-  if (!is.null(query$status)) {
-    query$status <- paste(status, collapse = ",")
-  }
-  if (!is.null(query$type)) {
-    query$type <- paste(type_coerced, collapse = ",")
-  }
+  # convert parameters with length > 1 to comma separated strings if present in query
+  query <- query %>%
+    purrr::map(~ paste(.x, collapse = ","))
 
-  if (!is.null(url_args)){
-    stopifnot(is.list(url_args))
-    query$url_args <- NULL
-  }
 
-  url <- do.call(build_url, url_args)
-  url <- glue::glue("{url}/time_off/requests") |>
+  # build url together with arguments and make request
+  url <- build_url(api_version = api_version)
+  url <- glue::glue("{url}/time_off/requests")  %>%
     httr::modify_url(query = query)
   response <- get_request(url)
+
+  # convert json response into a tibble
+  return(
+    response %>%
+      httr::content(as='text', type='json', encoding='UTF-8') %>%
+      jsonlite::fromJSON(simplifyDataFrame=TRUE) %>%
+      tibble::tibble() %>%
+      tidyr::unnest(tidyr::everything(), names_sep = "_") %>%
+      janitor::clean_names()
+  )
 }
 
 #' Get a list of Who's Out
 #'
 #' @param start (optional) - a date in the form YYYY-MM-DD - defaults to the current date.
 #' @param end  (optional) - a date in the form YYYY-MM-DD - defaults to 14 days from the start date.
-#' @param url_args (optional) - A list of named or unnamed arguments to be passed to build_URL function.
+#' @param api_version (optional) - Version of API to use to make request. Default is "v1".
 #'
-#' @return A [httr::response()] object where the content is a JSON format that contains a list,
-#'  sorted by date, of employees who will be out, and company holidays, for a period of time.
+#' @return A [tibble::tibble()] object.
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' res <- get_whos_out()
-#' httr::content(res, "parsed")
 #'
-#' res <- get_whos_out(start = "2022-01-12")
-#' httr::content(res, "parsed")
+#' res2 <- get_whos_out(start = "2022-01-12")
 #'
-#' res <- get_whos_out(start = "2022-01-01", end = "2022-04-01")
-#' httr::content(res, "parsed")
+#' res3 <- get_whos_out(start = "2022-01-01", end = "2022-04-01")
 #' }
 #' @references \url{https://documentation.bamboohr.com/reference/get-a-list-of-whos-out-1}
 #' @md
 
-get_whos_out <- function(start = "", end = "", url_args = NULL) {
+get_whos_out <- function(start = "", end = "", api_version = "v1") {
+  # check inputs are valid
   invalid_start <- invalid_end <- FALSE
   if (!(start == "")) {
     invalid_start <- is.na(lubridate::parse_date_time(start, orders = "ymd", quiet = TRUE))
@@ -117,34 +120,38 @@ get_whos_out <- function(start = "", end = "", url_args = NULL) {
 
   query <- list(start = start, end = end)
 
-  if (!is.null(url_args)){
-    stopifnot(is.list(url_args))
-  }
-
-  url <- do.call(build_url, url_args)
-  url <- glue::glue("{url}/time_off/whos_out") |>
+  # send request to api with user query
+  url <- build_url(api_version = api_version)
+  url <- glue::glue("{url}/time_off/whos_out") %>%
     httr::modify_url(query = query)
   response <- get_request(url)
+
+  # convert response to tibble
+  return(
+    response %>%
+      httr::content(as='text', type='json', encoding='UTF-8') %>%
+      jsonlite::fromJSON(simplifyDataFrame=TRUE) %>%
+      tibble::tibble() %>%
+      janitor::clean_names()
+  )
 }
 
 #' Get Time Off Types
 #'
 #' Wrapper to get_meta function that returns time off types
 #'
-#' @return A [httr::response()] object where the content is a JSON format that contains the
-#' list of time off types the user has permissions on.
+#' @return A vector of type ids
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' res <- get_timeoff_types()
-#' httr::content(res, "parsed")
+#' types <- get_timeoff_types()
+#' type_ids <- types %>% tidyr::drop_na(id) %>%  dplyr::pull(id)
 #' }
 #' @references \url{https://documentation.bamboohr.com/reference/get-time-off-types}
 #' @md
 get_timeoff_types <- function() {
   response <- get_meta("time_off/types")
-  return(response[["timeOffTypes.id"]])
 }
 
 
@@ -165,6 +172,10 @@ get_timeoff_types <- function() {
 #' @references \url{https://documentation.bamboohr.com/reference/get-time-off-policies}
 #' @md
 #'
+#' @note Currently do not have the permissions to test this so returning the raw response object
+#'
 get_timeoff_policies <- function() {
   response <- get_meta("time_off/policies")
+
+  response
 }

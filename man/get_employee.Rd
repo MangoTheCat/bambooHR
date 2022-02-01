@@ -9,13 +9,14 @@ get_employee(
   fields = NULL,
   only_current = FALSE,
   verbose = FALSE,
-  force_df = FALSE
+  api_version = "v1"
 )
 }
 \arguments{
-\item{id}{Employee ID (character or numeric). The default of "directory" will give a directory of all
-employees, along with a table of possible fields. The special employee ID of
-zero (0) means to use the employee ID associated with the API key (if any).}
+\item{id}{Employee IDs (character or numeric). The default of "directory"
+will give a directory of all employees, along with a table of possible fields.
+The special employee ID of zero (0) means to use the employee ID associated
+with the API key (if any).}
 
 \item{fields}{Character vector of fields to return. To see all available fields,
 see the column names of \code{get_employee()}.}
@@ -43,6 +44,7 @@ or compensation information. See the fields endpoint for a list of possible
 \dontrun{
 get_employee()
 get_employee(0, fields = c("firstName", "lastName"))
+get_employee(c(0, 1, 2), fields = c("firstName", "lastName", "jobTitle"))
 }
 
 }
