@@ -6,21 +6,9 @@
 
 .onLoad <- function(libname, pkgname) {
   config <- .get_config_file()
-  if (file.exists(config)) .parse_config(config)
+  if (file.exists(config)) use_config(config)
 }
 
-
-.parse_config <- function(config="~/.bambooHR_user_config.json") {
-  conf <- jsonlite::fromJSON(config, simplifyVector = FALSE)
-  .pkgenv[["conf"]] <- conf
-  if (is.null(conf[["api_key"]])) {
-    warning("Please check that the 'api_key' value is not missing or empty: ", config, call.=FALSE, immediate.=TRUE)
-  }
-
-  options("bambooHR.config_file" = config)
-  options("bambooHR.api_key" = conf[["api_key"]])
-  options("bambooHR.company_name" = conf[["company_name"]])
-}
 
 
 .get_api_key <- function() {
@@ -71,6 +59,6 @@ config_setup <- function(apikey, companyname, conffile) {
   close(f)
   ## User Read only
   Sys.chmod(conffile, mode = "600")
-  .parse_config(conffile)
+  use_config(conffile)
   invisible(NULL)
 }
