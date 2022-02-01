@@ -4,10 +4,12 @@
 \alias{get_report}
 \title{Bamboo HR API get request wrapper}
 \usage{
-get_report(id, format, fd, ...)
+get_report(id, format, fields, ...)
 }
 \arguments{
 \item{id}{employee ID. The special employee ID of zero (0) means to use the employee ID associated with the API key (if any).}
+
+\item{format}{the format for query values appended to URL.}
 
 \item{fields}{vector of values}
 
@@ -18,11 +20,6 @@ response object
 }
 \description{
 Submits get requests to the Bamboo API
-}
-\examples{
-keys <- globalEntry::get_keys()
-response <- get_employees(id = 0, fields = c("firstName","lastName"))
-
 }
 \author{
 Mark Druffel, \email{mdruffel@propellerpdx.com}
