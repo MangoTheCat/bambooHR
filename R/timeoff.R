@@ -18,7 +18,9 @@
 #' \dontrun{
 #' # find valid valid types
 #' types <- get_timeoff_types()
-#' res <- get_timeoff_requests("2022-01-01", "2022-02-01", type = types)
+#' type_ids <- types %>% tidyr::drop_na(id) %>%  dplyr::pull(id)
+#'
+#' res <- get_timeoff_requests("2022-01-01", "2022-02-01", type = type_ids)
 #'
 #' res2 <- get_timeoff_requests("2022-01-01", "2022-02-01", action = "approve", status = c("approved", "denied"))
 #'
@@ -145,14 +147,12 @@ get_whos_out <- function(start = "", end = "", api_version = "v1") {
 #' @examples
 #' \dontrun{
 #' types <- get_timeoff_types()
+#' type_ids <- types %>% tidyr::drop_na(id) %>%  dplyr::pull(id)
 #' }
 #' @references \url{https://documentation.bamboohr.com/reference/get-time-off-types}
 #' @md
 get_timeoff_types <- function() {
   response <- get_meta("time_off/types")
-  return(
-    response %>% dplyr::pull(id) %>% na.omit()
-  )
 }
 
 
