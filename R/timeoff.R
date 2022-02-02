@@ -32,10 +32,10 @@ get_timeoff_requests <- function(start, end, id = NULL, action = c("view", "appr
                         api_version = "v1") {
 
   # Type checks and Error handling ---
-  invalid_start <- is.na(lubridate::parse_date_time(start, orders = "ymd", quiet = TRUE))
-  invalid_end <- is.na(lubridate::parse_date_time(end, orders = "ymd", quiet = TRUE))
+  valid_start <- is_ymd(start)
+  valid_end <- is_ymd(end)
 
-  if (invalid_start | invalid_end) stop("Invalid date. Date formats must be YYYY-MM-DD")
+  if (!all(valid_start, valid_end)) stop("Invalid date. Date formats must be YYYY-MM-DD")
 
   if (!is.null(id)) {
     id <- as.integer(id)
@@ -105,18 +105,17 @@ get_timeoff_requests <- function(start, end, id = NULL, action = c("view", "appr
 #' }
 #' @references \url{https://documentation.bamboohr.com/reference/get-a-list-of-whos-out-1}
 #' @md
-
 get_whos_out <- function(start = "", end = "", api_version = "v1") {
   # check inputs are valid
   invalid_start <- invalid_end <- FALSE
   if (!(start == "")) {
-    invalid_start <- is.na(lubridate::parse_date_time(start, orders = "ymd", quiet = TRUE))
+    valid_start <- is_ymd(start)
   }
   if (!(end == "")) {
-    invalid_end <- is.na(lubridate::parse_date_time(end, orders = "ymd", quiet = TRUE))
+    valid_end <- is_ymd(end)
   }
 
-  if (invalid_start | invalid_end) stop("Invalid date. Date formats must be YYYY-MM-DD")
+  if (!all(valid_start, valid_end)) stop("Invalid date. Date formats must be YYYY-MM-DD")
 
   query <- list(start = start, end = end)
 
