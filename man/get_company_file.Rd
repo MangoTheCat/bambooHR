@@ -4,16 +4,40 @@
 \alias{get_company_file}
 \title{Retrieve A Company File}
 \usage{
-get_company_file(file_id, ...)
+get_company_file(
+  file_id,
+  company_domain = .get_company_name(),
+  api_version = "v1",
+  base_url = "https://api.bamboohr.com/api/gateway.php"
+)
 }
 \arguments{
-\item{file_id}{tbd}
+\item{file_id}{The ID of the file to get from BambooHR.}
 
-\item{...}{tbd}
+\item{company_domain}{The company's domain name}
+
+\item{api_version}{version of the BambooHR API}
+
+\item{base_url}{base url to the API gateway}
 }
 \value{
-text
+returns a response object.
 }
 \description{
-fill in
+`get_company_file` takes a file_id (string), company domain (string),
+api version (string), and base_url (string) as arguments and then requests
+and returns data about the corresponding file from the BambooHR API.
+}
+\examples{
+
+response <- get_company_file(
+"480",
+company_domain = "ascent",
+api_version = "v1",
+base_url = "https://api.bamboohr.com/api/gateway.php"
+)
+
+}
+\author{
+Mark Druffel, \email{mdruffel@propellerpdx.com}
 }
