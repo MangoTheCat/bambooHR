@@ -18,13 +18,10 @@
 #' history table fields.
 #'
 #' @param verbose Logical, default FALSE. Whether to return the fields dataframe
-#' when [id = "directory].
+#' when [id = "directory"].
 #'
-#' @return If \code{id} is given then a list of the fields and their values. If
-#' [force_df = TRUE] then this is converted to a dataframe. If
-#' \code{id = 'directory'} (the default) then the directory dataframe is returned.
-#' However, if [verbose = TRUE] then this will be returned in a list along with
-#' the fields dataframe.
+#' @return Tibble (dataframe), unless [verbose = TRUE] and [id = "directory"],
+#'  in which case a list with the fields dataframe and the directory dataframe.
 #'
 #' @examples \dontrun{
 #' get_employee()
