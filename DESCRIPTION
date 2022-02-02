@@ -17,8 +17,13 @@ Imports:
     httr,
     curl,
     jsonlite,
-    testthat,
-    magrittr
+    magrittr,
+    dplyr,
+    purrr,
+    tibble,
+    tidyr,
+    lubridate,
+    testthat
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

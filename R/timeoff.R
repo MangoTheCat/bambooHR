@@ -28,8 +28,8 @@
 #'
 #' }
 get_timeoff_requests <- function(start, end, id = NULL, action = c("view", "approve"), employee_id = NULL, type = NULL,
-                        status = c("approved", "denied", "superseded", "requested", "canceled"),
-                        api_version = "v1") {
+                                 status = c("approved", "denied", "superseded", "requested", "canceled"),
+                                 api_version = "v1") {
 
   # Type checks and Error handling ---
   invalid_start <- is.na(lubridate::parse_date_time(start, orders = "ymd", quiet = TRUE))
