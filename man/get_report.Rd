@@ -2,28 +2,33 @@
 % Please edit documentation in R/get_report.R
 \name{get_report}
 \alias{get_report}
-\title{Bamboo HR API get request wrapper}
+\title{Get Company Report}
 \usage{
-get_report(id, format, fd, ...)
+get_report(
+  id,
+  format = c("CSV", "PDF", "XLS", "XML", "JSON"),
+  field_filtering = TRUE,
+  only_current = TRUE,
+  api_version = "v1"
+)
 }
 \arguments{
-\item{id}{employee ID. The special employee ID of zero (0) means to use the employee ID associated with the API key (if any).}
+\item{id}{The report ID. You can get the report number by hovering over the
+report name on the reports page and grabbing the ID.}
 
-\item{fields}{vector of values}
+\item{format}{The output format for the report. Supported formats: CSV, PDF,
+XLS, XML, JSON.}
 
-\item{verbose}{Logical scalar. Should the function provide verbose messaging back on each step?}
+\item{field_filtering}{Logical, default [TRUE]. Whether to apply duplicate
+field filtering.}
+
+\item{only_current}{Logical default [TRUE]. Should the report be limited
+to only current employees.}
 }
 \value{
-response object
+Currently the function simply returns a parsed response object.
 }
 \description{
-Submits get requests to the Bamboo API
-}
-\examples{
-keys <- globalEntry::get_keys()
-response <- get_employees(id = 0, fields = c("firstName","lastName"))
-
-}
-\author{
-Mark Druffel, \email{mdruffel@propellerpdx.com}
+Request one of your pre-existing company reports from the reporting section.
+At present, only reports from the Company Reports section are supported.
 }
