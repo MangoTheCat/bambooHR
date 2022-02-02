@@ -28,8 +28,8 @@
 #'
 #' }
 get_timeoff_requests <- function(start, end, id = NULL, action = c("view", "approve"), employee_id = NULL, type = NULL,
-                        status = c("approved", "denied", "superseded", "requested", "canceled"),
-                        api_version = "v1") {
+                                 status = c("approved", "denied", "superseded", "requested", "canceled"),
+                                 api_version = "v1") {
 
   # Type checks and Error handling ---
   valid_start <- is_ymd(start)
@@ -106,12 +106,17 @@ get_timeoff_requests <- function(start, end, id = NULL, action = c("view", "appr
 #' @references \url{https://documentation.bamboohr.com/reference/get-a-list-of-whos-out-1}
 #' @md
 get_whos_out <- function(start = "", end = "", api_version = "v1") {
+
   # check inputs are valid
-  invalid_start <- invalid_end <- FALSE
-  if (!(start == "")) {
+  if (start == "") {
+    valid_start <- TRUE
+  } else {
     valid_start <- is_ymd(start)
   }
-  if (!(end == "")) {
+
+  if (end == "") {
+    valid_end <- TRUE
+  } else {
     valid_end <- is_ymd(end)
   }
 
