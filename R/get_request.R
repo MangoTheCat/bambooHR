@@ -34,6 +34,7 @@ get_request <- function(url,
     is.logical(verbose)
   )
 
+
   # Confirm internet works --------------------------------------------------
   check_internet()
 
