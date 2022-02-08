@@ -19,7 +19,6 @@ get_table <- function(table, id, since, ...) {
   query <- NULL
   if (rlang::is_missing(since)) {
     id <- rlang::maybe_missing(id, default = "all")
-  } else {
     id <- "changed"
     query$since <- as_ISO8601_character(since)
   }

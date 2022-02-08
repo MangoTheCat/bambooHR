@@ -15,6 +15,7 @@ Wrapper to get_meta function that returns time off types
 \examples{
 \dontrun{
 types <- get_timeoff_types()
+type_ids <- types \%>\% tidyr::drop_na(id) \%>\%  dplyr::pull(id)
 }
 }
 \references{
