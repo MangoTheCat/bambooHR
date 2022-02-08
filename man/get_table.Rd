@@ -4,23 +4,35 @@
 \alias{get_table}
 \title{Bamboo API get request wrapper for BambooHR tables}
 \usage{
-get_table(table, id, since, ...)
+get_table(employee_id, table_name, api_version = "v1")
 }
 \arguments{
-\item{user}{Bamboo api user id, register in Bamboo "API Keys"}
+\item{employee_id}{Character of employee ID to return. A special employee ID of "all",
+can also be used which will cause the API to return all rows for all employees in the table.
+When specifying "all" employees, the result will include inactive and terminated employees.
+In addition, the special employee ID of 0 is the employee ID associated
+with the API key being used.}
 
-\item{password}{Bamboo login password}
+\item{table_name}{Character of table name. Valid table names can be found in
+the "parent_alias" column return by \code{get_meta("tables")}.}
 
-\item{verbose}{a logical; indicates if detailed output from httr calls should be provided; default FALSE}
-
-\item{table_alias}{the a alis of the table name requested, must be valid from the meta data API}
+\item{api_version}{(optional) - Version of API to use to make request. Default is "v1".}
 }
 \value{
-tbl_df
+A \code{\link[tibble:tibble]{tibble::tibble()}} object.
 }
 \description{
-Submits a get request to retrieve a specified table from the system, valid tables are retreived from the
-meta data API
+Returns a data structure representing all the table rows for
+a given employee and table combination.
+}
+\examples{
+\dontrun{
+get_table(employee_id = "all", table_name = "jobInfo")
+
+get_table(employee_id = 0, table_name = "jobInfo")
+
+get_table(0, "compensation")
+}
 }
 \references{
 \url{https://documentation.bamboohr.com/reference#get-employee-table-row-1}
