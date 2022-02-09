@@ -41,7 +41,8 @@ get_request <- function(url,
   # Password is any random string -------------------------------------------
   # The password for bamboo api should be any random string and user should be the API key, see https://documentation.bamboohr.com/docs#section-authentication
   response <- httr::GET(
-    url, httr::authenticate(user = key, password = "notapplicable"),
+    url,
+    httr::authenticate(user = key, password = "notapplicable"),
     httr::add_headers(Accept = "application/json"),
     if (verbose) {
       httr::verbose(data_out = TRUE, info = TRUE)
