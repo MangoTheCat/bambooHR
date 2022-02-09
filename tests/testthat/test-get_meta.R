@@ -3,6 +3,10 @@ with_mock_api({
 
     # Get tables object
     tables <- get_meta("tables")
+
+    # Tests
     expect_s3_class(tables, "tbl_df")
+
+
   })
 })
