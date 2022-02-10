@@ -17,6 +17,12 @@ Imports:
     httr,
     curl,
     jsonlite,
+    magrittr,
+    dplyr,
+    purrr,
+    tibble,
+    tidyr,
+    lubridate,
     testthat
 License: MIT + file LICENSE
 Encoding: UTF-8

@@ -55,5 +55,5 @@ The package functions will now pull in your configuration information
 automatically.
 
 ``` r
-get_employees()
+get_employee()
 ```
