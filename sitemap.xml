@@ -16,13 +16,16 @@
     <loc>https://mangothecat.github.io/bambooHR/index.html</loc>
   </url>
   <url>
-    <loc>https://mangothecat.github.io/bambooHR/reference/as_ISO8601_character.html</loc>
+    <loc>https://mangothecat.github.io/bambooHR/reference/ISO_8601.html</loc>
   </url>
   <url>
     <loc>https://mangothecat.github.io/bambooHR/reference/build_url.html</loc>
   </url>
   <url>
     <loc>https://mangothecat.github.io/bambooHR/reference/config_setup.html</loc>
+  </url>
+  <url>
+    <loc>https://mangothecat.github.io/bambooHR/reference/date_formats.html</loc>
   </url>
   <url>
     <loc>https://mangothecat.github.io/bambooHR/reference/get_company_file.html</loc>
