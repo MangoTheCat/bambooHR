@@ -5,7 +5,6 @@
 #' or compensation information. See the fields endpoint for a list of possible
 #'  fields.
 #'
-#'
 #' @param id Employee IDs (character or numeric). The default of "directory"
 #' will give a directory of all employees, along with a table of possible fields.
 #' The special employee ID of zero (0) means to use the employee ID associated
@@ -19,6 +18,8 @@
 #'
 #' @param verbose Logical, default FALSE. Whether to return the fields dataframe
 #' when [id = "directory"].
+#'
+#' @param api_version (optional) - Version of API to use to make request. Default is "v1".
 #'
 #' @return Tibble (dataframe), unless [verbose = TRUE] and [id = "directory"],
 #'  in which case a list with the fields dataframe and the directory dataframe.
@@ -50,8 +51,8 @@ get_employee <- function(
   # If fields are given, encode special characters to be URL-friendly
   # Also give fields in specified way (comma-separated list)
   if (!rlang::is_null(fields)) {
-    query <- list(fields = URLencode(paste(fields, collapse = ",")),
-                  onlyCurrent = URLencode(stringr::str_to_lower(only_current)))
+    query <- list(fields = utils::URLencode(paste(fields, collapse = ",")),
+                  onlyCurrent = utils::URLencode(stringr::str_to_lower(only_current)))
   } else {
     query <- NULL
   }

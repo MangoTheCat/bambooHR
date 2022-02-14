@@ -33,7 +33,7 @@ get_report <- function(
   # Define query
   query <- list(format = format,
                 fd = fd,
-                onlyCurrent = URLencode(stringr::str_to_lower(only_current)))
+                onlyCurrent = utils::URLencode(stringr::str_to_lower(only_current)))
 
   # Build-up URL
   url <- build_url(api_version = api_version)
