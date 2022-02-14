@@ -26,6 +26,8 @@ history table fields.}
 
 \item{verbose}{Logical, default FALSE. Whether to return the fields dataframe
 when [id = "directory"].}
+
+\item{api_version}{(optional) - Version of API to use to make request. Default is "v1".}
 }
 \value{
 Tibble (dataframe), unless [verbose = TRUE] and [id = "directory"],

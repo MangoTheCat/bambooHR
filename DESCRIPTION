@@ -23,7 +23,7 @@ Imports:
     tibble,
     tidyr,
     lubridate,
-    testthat, 
+    testthat,
     janitor,
     stringr
 License: MIT + file LICENSE
