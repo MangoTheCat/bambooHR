@@ -10,16 +10,18 @@
 #'
 #' @return returns a response object.
 #'
-#' @examples
-#' response <- get_company_file(
+#' @examples \dontrun{
+#'response <- get_company_file(
 #' "480",
 #' api_version = "v1",
 #' )
+#'}
+
 #'
 #'@author Harry Alexander, \email{harry.alexander@ascent.io}
 
 get_company_file <- function(file_id,
-                              api_version = "v1") {
+                             api_version = "v1") {
   url <- build_url(api_version = api_version)
   # Default to directory if an individual employee is not specified
   file_id <- rlang::maybe_missing(file_id, default = "view")
@@ -33,13 +35,15 @@ get_company_file <- function(file_id,
     last = nchar(response$headers$`content-disposition`) - 1
   )
   # Attempt to parse content of file as raw binary and write it in wd
-  tryCatch({
-    response %>%
-      httr::content(as = "raw") %>%
-      writeBin(file_name)
-  }, error = function(e)
-    warning("Failed to download file."),
-  finally = {
-    return(response)
-  })
+  if (file_id != "view") {
+    tryCatch({
+      response %>%
+        httr::content(as = "raw") %>%
+        writeBin(file_name)
+    }, error = function(e)
+      warning("Failed to download file."),
+    finally = {
+      return(response)
+    })
+  }
 }
