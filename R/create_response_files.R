@@ -34,7 +34,7 @@
 #'
 #' @md
 #' @keywords internal
-create_response_files <- function(response, filepath) {
+create_response_files <- function(response, filepath, key) {
 
   # Ensure filepath is pointing to the test location - keep an original
   # so that we can use testthat::test_path in the .R file.
