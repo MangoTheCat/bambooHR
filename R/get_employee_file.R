@@ -53,26 +53,31 @@ get_employee_file <- function(id = "0",
   }
   # else file_id is "view" return a dataframe containing all files and categories
   else{
-    categories <- response %>%
-      httr::content() %>%
-      purrr::pluck("categories", 1) %>%
-      as_tibble() %>%
-      unnest_wider(files, names_sep = "_")
+    content <- httr::content(response)
+    if (!is.null(content$categories)) {
+      categories <- content %>%
+        purrr::pluck("categories", 1) %>%
+        as_tibble() %>%
+        unnest_wider(files, names_sep = "_")
 
-    employee <- response %>%
-      httr::content() %>%
-      purrr::pluck("employee", 1) %>%
-      as_tibble()
+      employee <- content %>%
+        purrr::pluck("employee", 1) %>%
+        as_tibble()
 
-    # Combine tibbles
-    output <-
-      dplyr::left_join(employee, categories, by = character())
+      # Combine tibbles
+      output <-
+        dplyr::left_join(employee, categories, by = character())
 
-    # Rename column names that are ambiguous to user and view table
-    output %>%
-      rename(employee_id = value) %>%
-      rename(category_id = id) %>%
-      rename(category_name = name) %>%
-      View()
+      # Rename column names that are ambiguous to user and view table
+      output %>%
+        rename(employee_id = value) %>%
+        rename(category_id = id) %>%
+        rename(category_name = name) %>%
+        View()
+    }
+    else{
+      message("Response from the API returned no files")
+    }
+    return(response)
   }
 }
