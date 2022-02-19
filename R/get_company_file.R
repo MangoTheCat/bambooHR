@@ -47,7 +47,7 @@ get_company_file <- function(file_id = "view",
   # else file_id is "view" return a dataframe containing all files and categories
   else{
     content <- httr::content(response)
-    if(!is.null(content$categories)){
+    if(!length(content$categories) == 0){
       categories <- content %>%
         purrr::pluck("categories", 1) %>%
         as_tibble() %>%
