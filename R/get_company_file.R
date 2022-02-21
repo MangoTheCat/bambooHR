@@ -50,10 +50,10 @@ get_company_file <- function(file_id = "view",
     if(!length(content$categories) == 0){
       categories <- content %>%
         purrr::pluck("categories", 1) %>%
-        as_tibble() %>%
-        unnest_wider(files, names_sep = "_") %>%
-        rename(category_id = id) %>%
-        rename(category_name = name)
+        tibble::as_tibble() %>%
+        tidyr::unnest_wider(files, names_sep = "_") %>%
+        dplyr::rename(category_id = id,
+                      category_name = name)
       View(categories)
     }
     else{
