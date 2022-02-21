@@ -54,7 +54,7 @@ get_company_file <- function(file_id = "view",
         tidyr::unnest_wider(files, names_sep = "_") %>%
         dplyr::rename(category_id = id,
                       category_name = name)
-      View(categories)
+      utils::View(categories)
     }
     else{
       message("The response from the API returned no files.")
