@@ -44,17 +44,17 @@ get_company_file <- function(file_id = "view",
       return(response)
     })
   }
-  # else file_id is "view" return a dataframe containing all files and categories
+  # else file_id is "view" return a data frame containing all files and categories
   else{
     content <- httr::content(response)
-    if(!length(content$categories) == 0){
+    if (!length(content$categories) == 0) {
       categories <- content %>%
         purrr::pluck("categories", 1) %>%
         tibble::as_tibble() %>%
         tidyr::unnest_wider(files, names_sep = "_") %>%
         dplyr::rename(category_id = id,
-                      category_name = name)
-      response_view(x = categories, title = "Response Data")
+                      category_name = name) %>%
+        response_view(title = "Response Data")
     }
     else{
       message("The response from the API returned no files.")
