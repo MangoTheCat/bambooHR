@@ -19,6 +19,7 @@
 #' )
 #'}
 #'
+#' @importFrom rlang .data
 #' @author Harry Alexander, \email{harry.alexander@ascent.io}
 
 get_employee_file <- function(id = "0",
@@ -58,7 +59,7 @@ get_employee_file <- function(id = "0",
       categories <- content %>%
         purrr::pluck("categories", 1) %>%
         tibble::as_tibble() %>%
-        tidyr::unnest_wider(files, names_sep = "_")
+        tidyr::unnest_wider(.data$files, names_sep = "_")
 
       employee <- content %>%
         purrr::pluck("employee", 1) %>%
@@ -69,9 +70,9 @@ get_employee_file <- function(id = "0",
 
       # Rename column names that are ambiguous to user and view table
       output %>%
-        dplyr::rename(employee_id = value,
-                      category_id = id,
-                      category_name = name) %>%
+        dplyr::rename(employee_id = .data$value,
+                      category_id = .data$id,
+                      category_name = .data$name) %>%
         response_view(title = "Response Data")
     }
     else{

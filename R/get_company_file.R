@@ -13,10 +13,11 @@
 #' @examples \dontrun{
 #'response <- get_company_file(
 #' "480",
-#' api_version = "v1",
+#' api_version = "v1"
 #' )
 #'}
 #'
+#' @importFrom rlang .data
 #'@author Harry Alexander, \email{harry.alexander@ascent.io}
 
 get_company_file <- function(file_id = "view",
@@ -51,9 +52,9 @@ get_company_file <- function(file_id = "view",
       categories <- content %>%
         purrr::pluck("categories", 1) %>%
         tibble::as_tibble() %>%
-        tidyr::unnest_wider(files, names_sep = "_") %>%
-        dplyr::rename(category_id = id,
-                      category_name = name) %>%
+        tidyr::unnest_wider(.data$files, names_sep = "_") %>%
+        dplyr::rename(category_id = .data$id,
+                      category_name = .data$name) %>%
         response_view(title = "Response Data")
     }
     else{

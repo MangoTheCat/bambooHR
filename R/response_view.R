@@ -9,7 +9,7 @@
 #' @return NULL.
 #'
 #' @examples \dontrun{
-#  x <- response_view(x = df, title = "dataframe_title")
+#'  x <- response_view(x = df, title = "dataframe_title")
 #'}
 
 response_view <- function(x, title){

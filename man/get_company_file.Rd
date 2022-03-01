@@ -2,42 +2,33 @@
 % Please edit documentation in R/get_company_file.R
 \name{get_company_file}
 \alias{get_company_file}
-\title{Retrieve A Company File}
+\title{Retrieve A Company File.}
 \usage{
-get_company_file(
-  file_id,
-  company_domain = .get_company_name(),
-  api_version = "v1",
-  base_url = "https://api.bamboohr.com/api/gateway.php"
-)
+get_company_file(file_id = "view", api_version = "v1")
 }
 \arguments{
 \item{file_id}{The ID of the file to get from BambooHR.}
 
-\item{company_domain}{The company's domain name}
-
-\item{api_version}{version of the BambooHR API}
-
-\item{base_url}{base url to the API gateway}
+\item{api_version}{version of the BambooHR API.}
 }
 \value{
 returns a response object.
 }
 \description{
-`get_company_file` takes a file_id (string), company domain (string),
-api version (string), and base_url (string) as arguments and then requests
-and returns data about the corresponding file from the BambooHR API.
+`get_company_file` takes a file_id (string) and
+api version (string) as arguments and then requests
+and returns data about the corresponding file from the BambooHR API,
+the file is then downloaded if possible.
 }
 \examples{
-
+\dontrun{
 response <- get_company_file(
 "480",
-company_domain = "ascent",
-api_version = "v1",
-base_url = "https://api.bamboohr.com/api/gateway.php"
+api_version = "v1"
 )
+}
 
 }
 \author{
-Mark Druffel, \email{mdruffel@propellerpdx.com}
+Harry Alexander, \email{harry.alexander@ascent.io}
 }
