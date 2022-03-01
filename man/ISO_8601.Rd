@@ -35,12 +35,4 @@ removed.
 into UTC (applying \code{Z} notation) and remove any milliseconds.
 }}
 
-\examples{
-as_ISO8601_character("2022-09-01")
-as_ISO8601_character("2022-09-01 10:59:59.001")
-
-coerce_ISO8601("2022-09-01")
-coerce_ISO8601("2022-09-01 10:59:59.001")
-
-}
 \keyword{internal}

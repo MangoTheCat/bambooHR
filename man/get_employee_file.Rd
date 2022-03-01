@@ -2,25 +2,36 @@
 % Please edit documentation in R/get_employee_file.R
 \name{get_employee_file}
 \alias{get_employee_file}
-\title{Bamboo HR API get request wrapper}
+\title{Retrieve An Employee File}
 \usage{
-get_employee_file(id, file_id, verbose, ...)
+get_employee_file(id = "0", file_id = "view", api_version = "v1")
 }
 \arguments{
-\item{id}{employee ID. The special employee ID of zero (0) means to use the employee ID associated with the API key (if any).}
+\item{id}{The employee id of the employee.}
 
-\item{file_id}{vector of values}
+\item{file_id}{The file id of the file to be returned.}
 
-\item{verbose}{Logical scalar. Should the function provide verbose messaging back on each step? - (XL) Sounds good}
-
-\item{...}{tbd}
+\item{api_version}{The version of BambooHR API to be used.}
 }
 \value{
-response object
+returns a response object.
 }
 \description{
-Submits get requests to the Bamboo API
+`get_employee_file` takes 'id' (string), 'file_id', (string), and
+'api_version' (string) and then requests and returns data about
+the corresponding file from the BambooHR API.
+The file will then be written to the user's working directory if possible.
+}
+\examples{
+\dontrun{
+#' response <- get_employee_file(
+id = 0,
+file_id = "480",
+api_version = "v1"
+)
+}
+
 }
 \author{
-Mark Druffel, \email{mdruffel@propellerpdx.com}
+Harry Alexander, \email{harry.alexander@ascent.io}
 }
