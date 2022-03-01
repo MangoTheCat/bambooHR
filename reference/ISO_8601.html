@@ -73,20 +73,6 @@ removed.</p></li>
 into UTC (applying <code>Z</code> notation) and remove any milliseconds.</p></li>
 </ul></div>
 
-    <div class="section level2">
-    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">as_ISO8601_character</span><span class="op">(</span><span class="st">"2022-09-01"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2022-09-01T00:00:00+00:00"</span>
-<span class="r-in"><span class="fu">as_ISO8601_character</span><span class="op">(</span><span class="st">"2022-09-01 10:59:59.001"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2022-09-01T10:59:59+00:00"</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">coerce_ISO8601</span><span class="op">(</span><span class="st">"2022-09-01"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in coerce_ISO8601("2022-09-01"):</span> could not find function "coerce_ISO8601"</span>
-<span class="r-in"><span class="fu">coerce_ISO8601</span><span class="op">(</span><span class="st">"2022-09-01 10:59:59.001"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in coerce_ISO8601("2022-09-01 10:59:59.001"):</span> could not find function "coerce_ISO8601"</span>
-<span class="r-in"></span>
-</code></pre></div>
-    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
