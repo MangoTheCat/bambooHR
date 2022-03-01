@@ -44,10 +44,6 @@ NULL
 
 #' @param datetime Character string. The datetime to coerce.
 #'
-#' @examples
-#' as_ISO8601_character("2022-09-01")
-#' as_ISO8601_character("2022-09-01 10:59:59.001")
-#'
 #' @describeIn ISO_8601 Coerce datetime into ISO8601 format. This will convert
 #' represent the datetime relative to UTC using \code{+} notation. Milliseconds are
 #' removed.
@@ -73,10 +69,6 @@ as_ISO8601_character <- function(datetime){
 #'
 #' @describeIn ISO_8601 Coerce a date to ISO8601 format. This will convert the date
 #' into UTC (applying \code{Z} notation) and remove any milliseconds.
-#'
-#' @examples
-#' coerce_ISO8601("2022-09-01")
-#' coerce_ISO8601("2022-09-01 10:59:59.001")
 #'
 #' @keywords internal
 coerce_ISO8601 <- function(date){
