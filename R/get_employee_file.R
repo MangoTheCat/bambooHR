@@ -1,22 +1,83 @@
-#' @title Bamboo HR API get request wrapper
+#' @title Retrieve An Employee File
 #'
-#' @description  Submits get requests to the Bamboo API
+#' @description `get_employee_file` takes 'id' (string), 'file_id', (string), and
+#' 'api_version' (string) and then requests and returns data about
+#' the corresponding file from the BambooHR API.
+#' The file will then be written to the user's working directory if possible.
 #'
-#' @param id employee ID. The special employee ID of zero (0) means to use the employee ID associated with the API key (if any).
-#' @param file_id  vector of values
-#' @param verbose Logical scalar. Should the function provide verbose messaging back on each step? - (XL) Sounds good
-#' @param ... tbd
+#' @param id The employee id of the employee.
+#' @param file_id The file id of the file to be returned.
+#' @param api_version The version of BambooHR API to be used.
 #'
-#' @return response object
-#' @author Mark Druffel, \email{mdruffel@propellerpdx.com}
-get_employee_file <- function(id, file_id, verbose, ...){
-  dots <- rlang::list2(...)
-  #Default to view if a file_id is not specified, this provides all files the employee has
-  file_id <- rlang::maybe_missing(file_id, default = "view")
-  url <- build_url(company_domain = dots$company_domain,
-                   api_version = dots$api_version,
-                   base_url = dots$base_url)
+#' @return returns a response object.
+#'
+#' @examples \dontrun{
+#' #' response <- get_employee_file(
+#' id = 0,
+#' file_id = "480",
+#' api_version = "v1"
+#' )
+#'}
+#'
+#' @importFrom rlang .data
+#' @author Harry Alexander, \email{harry.alexander@ascent.io}
+
+get_employee_file <- function(id = "0",
+                              file_id = "view",
+                              api_version = "v1") {
+  url <- build_url(api_version = api_version)
+  # If ID is given as 0, then use ID associated with API key
+  if (as.character(id) == "0") {
+    id <- get_employee(0)$id
+  }
+  # Glues "/files/file_id" to url returned from build_url call
   url <- glue::glue("{url}/employees/{id}/files/{file_id}")
   response <- get_request(url)
-  return(response)
+  # Extract file name from 'content-disposition' variable
+  file_name <- substring(
+    text = response$headers$`content-disposition`,
+    first = 23,
+    last = nchar(response$headers$`content-disposition`) - 1
+  )
+  # Attempt to parse content of file as raw binary and write it in wd
+  if (file_id != "view") {
+    tryCatch({
+      response %>%
+        httr::content(as = "raw") %>%
+        writeBin(file_name)
+      message("Successfully downloaded file to working directory.")
+    }, error = function(e)
+      warning("Failed to download file."),
+    finally = {
+      return(response)
+    })
+  }
+  # else file_id is "view" return a dataframe containing all files and categories
+  else{
+    content <- httr::content(response)
+    if(!length(content$categories) == 0) {
+      categories <- content %>%
+        purrr::pluck("categories", 1) %>%
+        tibble::as_tibble() %>%
+        tidyr::unnest_wider(.data$files, names_sep = "_")
+
+      employee <- content %>%
+        purrr::pluck("employee", 1) %>%
+        tibble::as_tibble()
+
+      # Combine tibbles
+      output <- dplyr::left_join(employee, categories, by = character())
+
+      # Rename column names that are ambiguous to user and view table
+      output %>%
+        dplyr::rename(employee_id = .data$value,
+                      category_id = .data$id,
+                      category_name = .data$name) %>%
+        response_view(title = "Response Data")
+    }
+    else{
+      message("Response from the API returned no files")
+    }
+    return(response)
+  }
 }

@@ -46,7 +46,8 @@ type_ids <- types \%>\% tidyr::drop_na(id) \%>\%  dplyr::pull(id)
 
 res <- get_timeoff_requests("2022-01-01", "2022-02-01", type = type_ids)
 
-res2 <- get_timeoff_requests("2022-01-01", "2022-02-01", action = "approve", status = c("approved", "denied"))
+res2 <- get_timeoff_requests("2022-01-01", "2022-02-01", action = "approve",
+                             status = c("approved", "denied"))
 
 res3 <- get_timeoff_requests("2022-01-01", "2022-02-01", employee_id = "4")
 

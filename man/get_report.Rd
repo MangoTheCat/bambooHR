@@ -24,6 +24,8 @@ field filtering.}
 
 \item{only_current}{Logical default [TRUE]. Should the report be limited
 to only current employees.}
+
+\item{api_version}{(optional) - Version of API to use to make request. Default is "v1".}
 }
 \value{
 Currently the function simply returns a parsed response object.

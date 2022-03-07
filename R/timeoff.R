@@ -22,7 +22,8 @@
 #'
 #' res <- get_timeoff_requests("2022-01-01", "2022-02-01", type = type_ids)
 #'
-#' res2 <- get_timeoff_requests("2022-01-01", "2022-02-01", action = "approve", status = c("approved", "denied"))
+#' res2 <- get_timeoff_requests("2022-01-01", "2022-02-01", action = "approve",
+#'                              status = c("approved", "denied"))
 #'
 #' res3 <- get_timeoff_requests("2022-01-01", "2022-02-01", employee_id = "4")
 #'
@@ -32,10 +33,10 @@ get_timeoff_requests <- function(start, end, id = NULL, action = c("view", "appr
                                  api_version = "v1") {
 
   # Type checks and Error handling ---
-  invalid_start <- is.na(lubridate::parse_date_time(start, orders = "ymd", quiet = TRUE))
-  invalid_end <- is.na(lubridate::parse_date_time(end, orders = "ymd", quiet = TRUE))
+  valid_start <- is_ymd(start)
+  valid_end <- is_ymd(end)
 
-  if (invalid_start | invalid_end) stop("Invalid date. Date formats must be YYYY-MM-DD")
+  if (!all(valid_start, valid_end)) stop("Invalid date. Date formats must be YYYY-MM-DD")
 
   if (!is.null(id)) {
     id <- as.integer(id)
@@ -105,18 +106,22 @@ get_timeoff_requests <- function(start, end, id = NULL, action = c("view", "appr
 #' }
 #' @references \url{https://documentation.bamboohr.com/reference/get-a-list-of-whos-out-1}
 #' @md
-
 get_whos_out <- function(start = "", end = "", api_version = "v1") {
+
   # check inputs are valid
-  invalid_start <- invalid_end <- FALSE
-  if (!(start == "")) {
-    invalid_start <- is.na(lubridate::parse_date_time(start, orders = "ymd", quiet = TRUE))
-  }
-  if (!(end == "")) {
-    invalid_end <- is.na(lubridate::parse_date_time(end, orders = "ymd", quiet = TRUE))
+  if (start == "") {
+    valid_start <- TRUE
+  } else {
+    valid_start <- is_ymd(start)
   }
 
-  if (invalid_start | invalid_end) stop("Invalid date. Date formats must be YYYY-MM-DD")
+  if (end == "") {
+    valid_end <- TRUE
+  } else {
+    valid_end <- is_ymd(end)
+  }
+
+  if (!all(valid_start, valid_end)) stop("Invalid date. Date formats must be YYYY-MM-DD")
 
   query <- list(start = start, end = end)
 
