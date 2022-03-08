@@ -1,6 +1,7 @@
 with_mock_api({
   test_that("We can see what files there are", {
 
+    local_config()
     # Get employee directory
     cf <- get_company_file(suppress_view = TRUE)
 

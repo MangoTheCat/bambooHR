@@ -1,6 +1,7 @@
 with_mock_api({
   test_that("We can get the directory", {
 
+    local_config()
     # Get employee directory
     table <- get_table(employee_id = 123, table_name = "jobInfo")
 

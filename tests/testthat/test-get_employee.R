@@ -1,6 +1,7 @@
 with_mock_api({
   test_that("We can get the directory", {
 
+    local_config()
     # Get employee directory
     directory <- get_employee()
 

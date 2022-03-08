@@ -1,6 +1,7 @@
 with_mock_api({
   test_that("Can get tables", {
 
+    local_config()
     # Get tables object
     tables <- get_meta("tables")
 

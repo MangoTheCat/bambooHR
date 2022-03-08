@@ -1,5 +1,6 @@
 with_mock_api({
   test_that("get time off types works", {
+    local_config()
     types <- get_timeoff_types()
 
     # Tests
