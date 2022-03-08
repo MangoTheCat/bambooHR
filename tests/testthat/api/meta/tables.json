@@ -1,0 +1,84 @@
+[
+    {
+        "alias": "jobInfo",
+        "fields": [
+            {
+                "id": 4047,
+                "name": "Job Information: Date",
+                "alias": "date",
+                "type": "date"
+            },
+            {
+                "id": 18,
+                "name": "Location",
+                "alias": "location",
+                "type": "list"
+            },
+            {
+                "id": 4,
+                "name": "Department",
+                "alias": "department",
+                "type": "list"
+            },
+            {
+                "id": 1355,
+                "name": "Division",
+                "alias": "division",
+                "type": "list"
+            },
+            {
+                "id": 17,
+                "name": "Job Title",
+                "alias": "jobTitle",
+                "type": "list"
+            },
+            {
+                "id": 91,
+                "name": "Reporting to",
+                "alias": "reportsTo",
+                "type": "employee"
+            }
+        ]
+    },
+    {
+        "alias": "employmentStatus",
+        "fields": [
+            {
+                "id": 1936,
+                "name": "Employment Status: Date",
+                "alias": "date",
+                "type": "date"
+            },
+            {
+                "id": 16,
+                "name": "Employment Status",
+                "alias": "employmentStatus",
+                "type": "list"
+            },
+            {
+                "id": 4046,
+                "name": "Employment status comments",
+                "alias": "comment",
+                "type": "textarea"
+            },
+            {
+                "id": 4314,
+                "name": "Termination Reason",
+                "alias": "terminationReasonId",
+                "type": "list"
+            },
+            {
+                "id": 4313,
+                "name": "Termination Type",
+                "alias": "terminationTypeId",
+                "type": "list"
+            },
+            {
+                "id": 4315,
+                "name": "Eligible For Re-hire",
+                "alias": "terminationRehireId",
+                "type": "list"
+            }
+        ]
+    }
+]

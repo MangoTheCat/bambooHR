@@ -1,0 +1,33 @@
+{
+    "categories": [
+        {
+            "id": 123,
+            "canUploadFiles": "no",
+            "name": "Test Files",
+            "files": [
+                {
+                    "id": 1,
+                    "name": "instruction.pdf",
+                    "originalFileName": "instruction.pdf",
+                    "size": "3893092",
+                    "dateCreated": "2019-04-16T07:32:30+0000",
+                    "createdBy": "John Smith",
+                    "shareWithEmployees": "no",
+                    "canRenameFile": "no",
+                    "canDeleteFile": "no"
+                },
+                {
+                    "id": 2,
+                    "name": "agents.pdf",
+                    "originalFileName": "agents.pdf",
+                    "size": "1024105",
+                    "dateCreated": "2019-04-16T07:32:30+0000",
+                    "createdBy": "John Smith",
+                    "shareWithEmployees": "no",
+                    "canRenameFile": "no",
+                    "canDeleteFile": "no"
+                }
+            ]
+        }
+    ]
+}

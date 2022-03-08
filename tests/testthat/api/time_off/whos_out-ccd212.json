@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "type": "timeOff",
+        "employeeId": 1,
+        "name": "John Smith",
+        "start": "2019-05-04",
+        "end": "2021-05-04"
+    },
+    {
+        "id": 2,
+        "type": "timeOff",
+        "employeeId": 1,
+        "name": "John Smith",
+        "start": "2019-06-24",
+        "end": "2020-11-15"
+    },
+    {
+        "id": 3,
+        "type": "timeOff",
+        "employeeId": 1,
+        "name": "John Smith",
+        "start": "2019-12-02",
+        "end": "2020-01-12"
+    }
+]
