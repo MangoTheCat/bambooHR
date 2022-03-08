@@ -26,8 +26,7 @@ Imports:
     testthat,
     janitor,
     stringr,
-    cli,
-    httptest
+    cli
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
