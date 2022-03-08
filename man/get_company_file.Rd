@@ -4,12 +4,14 @@
 \alias{get_company_file}
 \title{Retrieve A Company File.}
 \usage{
-get_company_file(file_id = "view", api_version = "v1")
+get_company_file(file_id = "view", api_version = "v1", suppress_view = FALSE)
 }
 \arguments{
 \item{file_id}{The ID of the file to get from BambooHR.}
 
 \item{api_version}{version of the BambooHR API.}
+
+\item{suppress_view}{prevent display of results when file_id = "view", default is FALSE.}
 }
 \value{
 returns a response object.

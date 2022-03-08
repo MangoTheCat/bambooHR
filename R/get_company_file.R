@@ -7,6 +7,7 @@
 #'
 #' @param file_id The ID of the file to get from BambooHR.
 #' @param api_version version of the BambooHR API.
+#' @param suppress_view prevent display of results when file_id = "view", default is FALSE.
 #'
 #' @return returns a response object.
 #'
@@ -21,7 +22,8 @@
 #'@author Harry Alexander, \email{harry.alexander@ascent.io}
 
 get_company_file <- function(file_id = "view",
-                             api_version = "v1") {
+                             api_version = "v1",
+                             suppress_view = FALSE) {
   url <- build_url(api_version = api_version)
   # Glues "/files/file_id" to url returned from build_url call
   url <- glue::glue("{url}/files/{file_id}")
@@ -46,7 +48,7 @@ get_company_file <- function(file_id = "view",
     })
   }
   # else file_id is "view" return a data frame containing all files and categories
-  else{
+  else if (suppress_view == FALSE) {
     content <- httr::content(response)
     if (!length(content$categories) == 0) {
       categories <- content %>%
@@ -60,6 +62,6 @@ get_company_file <- function(file_id = "view",
     else{
       message("The response from the API returned no files.")
     }
-    return(response)
   }
+  return(response)
 }

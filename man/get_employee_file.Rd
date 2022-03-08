@@ -4,7 +4,12 @@
 \alias{get_employee_file}
 \title{Retrieve An Employee File}
 \usage{
-get_employee_file(id = "0", file_id = "view", api_version = "v1")
+get_employee_file(
+  id = "0",
+  file_id = "view",
+  api_version = "v1",
+  suppress_view = FALSE
+)
 }
 \arguments{
 \item{id}{The employee id of the employee.}
@@ -12,6 +17,8 @@ get_employee_file(id = "0", file_id = "view", api_version = "v1")
 \item{file_id}{The file id of the file to be returned.}
 
 \item{api_version}{The version of BambooHR API to be used.}
+
+\item{suppress_view}{prevent display of results when file_id = "view", default is FALSE.}
 }
 \value{
 returns a response object.

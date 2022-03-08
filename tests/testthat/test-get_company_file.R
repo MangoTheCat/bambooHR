@@ -2,7 +2,7 @@ with_mock_api({
   test_that("We can see what files there are", {
 
     # Get employee directory
-    cf <- get_company_file()
+    cf <- get_company_file(suppress_view = TRUE)
 
     cf <- httr::content(cf)
 
