@@ -11,23 +11,10 @@ with_mock_api({
                    "jobTitle", "workEmail", "department", "location", "division",
                    "pronouns", "photoUploaded", "photoUrl", "canUploadPhoto"))
 
+    expect_equal(nrow(directory), 1)
+    expect_equal(directory$firstName, "John")
+    expect_equal(directory$lastName, "Smith")
+
 
   })
 })
-
-
-library(encryptr)
-library(dplyr)
-genkeys()
-
-set.seed(12932)
-directory %>%
-  select(-photoUrl) %>%
-  encrypt(everything(), )
-
-
-directory_response
-
-key <- httr2::secret_make_key()
-httr2::secret_write_rds(directory_response, "directory_response_secret", key = key)
-httr2::secret_read_rds("directory_response_secret", key)
