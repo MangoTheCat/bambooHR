@@ -4,10 +4,12 @@
 \alias{use_config}
 \title{Use Config File}
 \usage{
-use_config(config = "~/.bambooHR_user_config.json")
+use_config(config = "~/.bambooHR_user_config.json", verbose = TRUE)
 }
 \arguments{
 \item{config}{Filepath to the config file.}
+
+\item{verbose}{Print location of config file being used, default = TRUE}
 }
 \value{
 [NULL] invisibly.
