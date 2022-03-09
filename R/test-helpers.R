@@ -6,7 +6,6 @@ local_config <- function(env = parent.frame()) {
   config_setup(apikey = "test", companyname = "ascent",
                conffile = "bambooconf.json", verbose = FALSE)
 
-  withr::defer(fs::file_delete("bambooconf.json"), envir = env)
+  #withr::defer(fs::file_delete("bambooconf.json"), envir = env)
 
-  invisible(NULL)
 }
