@@ -42,7 +42,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">config_setup</span><span class="op">(</span><span class="va">apikey</span>, <span class="va">companyname</span>, <span class="va">conffile</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">config_setup</span><span class="op">(</span><span class="va">apikey</span>, <span class="va">companyname</span>, <span class="va">conffile</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -54,6 +54,8 @@
 <dt>conffile</dt>
 <dd><p>A string giving the path where the configuration file will be written.
 This will automatically attempt to load from the default location <code>~/.bambooHR_user_config.json</code> (which can be changed via a <code>bambooHR.config_file</code>) entry in <code>options</code>).</p></dd>
+<dt>verbose</dt>
+<dd><p>whether to print path of conf file used, passed to use_config</p></dd>
 </dl></div>
 
     <div class="section level2">
