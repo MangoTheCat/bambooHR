@@ -7,6 +7,7 @@ local_config <- function(env = parent.frame()) {
   cat(json,file = f)
   close(f)
 
+  withr::local_options("bambooHR.config_file" = "~/bambooHR_user_config.json")
   withr::defer_parent(unlink("~/bambooHR_user_config.json"))
 
 }
