@@ -8,6 +8,7 @@
 #' @param id The employee id of the employee.
 #' @param file_id The file id of the file to be returned.
 #' @param api_version The version of BambooHR API to be used.
+#' @param suppress_view prevent display of results when file_id = "view", default is FALSE.
 #'
 #' @return returns a response object.
 #'
@@ -24,7 +25,8 @@
 
 get_employee_file <- function(id = "0",
                               file_id = "view",
-                              api_version = "v1") {
+                              api_version = "v1",
+                              suppress_view = FALSE) {
   url <- build_url(api_version = api_version)
   # If ID is given as 0, then use ID associated with API key
   if (as.character(id) == "0") {
@@ -53,7 +55,7 @@ get_employee_file <- function(id = "0",
     })
   }
   # else file_id is "view" return a dataframe containing all files and categories
-  else{
+  else if (suppress_view == FALSE) {
     content <- httr::content(response)
     if(!length(content$categories) == 0) {
       categories <- content %>%
@@ -78,6 +80,6 @@ get_employee_file <- function(id = "0",
     else{
       message("Response from the API returned no files")
     }
-    return(response)
   }
+  return(response)
 }

@@ -1,0 +1,78 @@
+[
+    {
+        "id": "1001",
+        "employeeId": "1",
+        "status": {
+            "lastChanged": "2021-05-07",
+            "lastChangedByUserId": "99",
+            "status": "approved"
+        },
+        "name": "A. Person",
+        "start": "2021-10-06",
+        "end": "2021-10-06",
+        "created": "2021-05-07",
+        "type": {
+            "id": "1",
+            "name": "Holiday",
+            "icon": "palm-trees"
+        },
+        "amount": {
+            "unit": "days",
+            "amount": "1"
+        },
+        "actions": {
+            "view": true,
+            "edit": false,
+            "cancel": false,
+            "approve": false,
+            "deny": false,
+            "bypass": false
+        },
+        "dates": {
+            "2021-10-06": "1"
+        },
+        "notes": {
+
+        }
+    },
+    {
+        "id": "1002",
+        "employeeId": "2",
+        "status": {
+            "lastChanged": "2021-06-17",
+            "lastChangedByUserId": "98",
+            "status": "approved"
+        },
+        "name": "P. eople",
+        "start": "2021-10-04",
+        "end": "2021-10-08",
+        "created": "2021-06-17",
+        "type": {
+            "id": "1",
+            "name": "Holiday",
+            "icon": "palm-trees"
+        },
+        "amount": {
+            "unit": "days",
+            "amount": "5"
+        },
+        "actions": {
+            "view": true,
+            "edit": false,
+            "cancel": false,
+            "approve": false,
+            "deny": false,
+            "bypass": false
+        },
+        "dates": {
+            "2021-10-04": "1",
+            "2021-10-05": "1",
+            "2021-10-06": "1",
+            "2021-10-07": "1",
+            "2021-10-08": "1"
+        },
+        "notes": {
+
+        }
+    }
+]

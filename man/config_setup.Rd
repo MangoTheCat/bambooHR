@@ -4,7 +4,7 @@
 \alias{config_setup}
 \title{Create a JSON config file}
 \usage{
-config_setup(apikey, companyname, conffile)
+config_setup(apikey, companyname, conffile, verbose = TRUE)
 }
 \arguments{
 \item{apikey}{API key to access the bambooHR API. User will be prompted to enter one if not supplied}
@@ -13,6 +13,8 @@ config_setup(apikey, companyname, conffile)
 
 \item{conffile}{A string giving the path where the configuration file will be written.
 This will automatically attempt to load from the default location \code{~/.bambooHR_user_config.json} (which can be changed via a \code{bambooHR.config_file}) entry in \code{options}).}
+
+\item{verbose}{whether to print path of conf file used, passed to use_config}
 }
 \description{
 Create a JSON config file

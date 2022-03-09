@@ -35,6 +35,7 @@
 #' @param companyname This is the subdomain used to access BambooHR. If you access BambooHR at https://mycompany.bamboohr.com, then companyname will be "mycompany"
 #' @param conffile A string giving the path where the configuration file will be written.
 #' This will automatically attempt to load from the default location \code{~/.bambooHR_user_config.json} (which can be changed via a \code{bambooHR.config_file}) entry in \code{options}).
+#' @param verbose whether to print path of conf file used, passed to use_config
 #'
 #' @export
 #'
@@ -43,7 +44,7 @@
 #' config_setup("secret api key", "cool company")
 #' }
 #'
-config_setup <- function(apikey, companyname, conffile) {
+config_setup <- function(apikey, companyname, conffile, verbose = TRUE) {
 
   if (missing(apikey))
     apikey <- readline("Please enter your API key: ")
@@ -59,6 +60,6 @@ config_setup <- function(apikey, companyname, conffile) {
   close(f)
   ## User Read only
   Sys.chmod(conffile, mode = "600")
-  use_config(conffile)
+  use_config(conffile, verbose)
   invisible(NULL)
 }

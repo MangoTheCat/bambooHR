@@ -14,6 +14,7 @@
 #' the API key when called.
 #'
 #' @param config Filepath to the config file.
+#' @param verbose Print location of config file being used, default = TRUE
 #'
 #' @return [NULL] invisibly.
 #'
@@ -32,7 +33,8 @@
 #' unlink("example.json")
 #' unlink("example2.json")
 #' }
-use_config <- function(config="~/.bambooHR_user_config.json") {
+use_config <- function(config="~/.bambooHR_user_config.json",
+                       verbose = TRUE) {
   conf <- jsonlite::fromJSON(config, simplifyVector = FALSE)
   .pkgenv[["conf"]] <- conf
   if (is.null(conf[["api_key"]])) {
@@ -43,8 +45,10 @@ use_config <- function(config="~/.bambooHR_user_config.json") {
   options("bambooHR.api_key" = conf[["api_key"]])
   options("bambooHR.company_name" = conf[["company_name"]])
 
-  cli::cli_alert_success(glue::glue(
-    "Using config file: {normalizePath(config)}"
-  ))
+  if (verbose) {
+    cli::cli_alert_success(glue::glue(
+      "Using config file: {normalizePath(config)}"
+    ))
+  }
   invisible(NULL)
 }

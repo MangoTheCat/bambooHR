@@ -1,0 +1,87 @@
+{
+    "fields": [
+        {
+            "id": "displayName",
+            "type": "text",
+            "name": "Display name"
+        },
+        {
+            "id": "firstName",
+            "type": "text",
+            "name": "First name"
+        },
+        {
+            "id": "lastName",
+            "type": "text",
+            "name": "Last name"
+        },
+        {
+            "id": "preferredName",
+            "type": "text",
+            "name": "Preferred name"
+        },
+        {
+            "id": "jobTitle",
+            "type": "list",
+            "name": "Job title"
+        },
+        {
+            "id": "workEmail",
+            "type": "email",
+            "name": "Work Email"
+        },
+        {
+            "id": "department",
+            "type": "list",
+            "name": "Department"
+        },
+        {
+            "id": "location",
+            "type": "list",
+            "name": "Location"
+        },
+        {
+            "id": "division",
+            "type": "list",
+            "name": "Division"
+        },
+        {
+            "id": "pronouns",
+            "type": "list",
+            "name": "Pronouns"
+        },
+        {
+            "id": "photoUploaded",
+            "type": "bool",
+            "name": "Employee photo exists"
+        },
+        {
+            "id": "photoUrl",
+            "type": "url",
+            "name": "Employee photo url"
+        },
+        {
+            "type": "bool",
+            "name": "",
+            "id": "canUploadPhoto"
+        }
+    ],
+    "employees": [
+        {
+            "id": "1",
+            "displayName": "John Smith",
+            "firstName": "John",
+            "lastName": "Smith",
+            "preferredName": null,
+            "jobTitle": "Worker Bee",
+            "workEmail": "John.Smith@company.com",
+            "department": "Team",
+            "location": "Somewhere",
+            "division": "Company-Team",
+            "pronouns": null,
+            "photoUploaded": true,
+            "photoUrl": "NULL",
+            "canUploadPhoto": 0
+        }
+    ]
+}
