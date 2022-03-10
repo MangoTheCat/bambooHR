@@ -5,7 +5,7 @@
 
 [![R-CMD-check](https://github.com/MangoTheCat/bambooHR/workflows/R-CMD-check/badge.svg)](https://github.com/MangoTheCat/bambooHR/actions)
 
-[![codecov](https://app.codecov.io/gh/MangoTheCat/bambooHR/branch/develop/graph/badge.svg?token=MO7E11509U)](https://codecov.io/gh/MangoTheCat/bambooHR)
+[![codecov](https://app.codecov.io/gh/MangoTheCat/bambooHR/branch/develop/graph/badge.svg?token=MO7E11509U)](https://app.codecov.io/gh/MangoTheCat/bambooHR)
 <!-- badges: end -->
 
 `{bambooHR}` is an R wrapper for the bambooHR API. By supplying a
