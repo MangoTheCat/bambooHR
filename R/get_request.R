@@ -17,7 +17,7 @@
 #'
 #' @references
 #' \url{https://github.com/r-lib/httr}
-#' \url{https://curl.haxx.se/libcurl/c/CURLOPT_HTTP_VERSION.html}
+#' \url{https://curl.se/libcurl/c/CURLOPT_HTTP_VERSION.html}
 #'
 #' @md
 
