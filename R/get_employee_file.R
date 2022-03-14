@@ -13,7 +13,7 @@
 #' @return returns a response object.
 #'
 #' @examples \dontrun{
-#' #' response <- get_employee_file(
+#' response <- get_employee_file(
 #' id = 0,
 #' file_id = "480",
 #' api_version = "v1"

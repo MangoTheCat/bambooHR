@@ -8,9 +8,6 @@
 #'
 #' @return NULL.
 #'
-#' @examples \dontrun{
-#'  x <- response_view(x = df, title = "dataframe_title")
-#'}
 
 response_view <- function(x, title){
   get("View", envir = as.environment("package:utils"))(x, title)

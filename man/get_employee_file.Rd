@@ -31,7 +31,7 @@ The file will then be written to the user's working directory if possible.
 }
 \examples{
 \dontrun{
-#' response <- get_employee_file(
+response <- get_employee_file(
 id = 0,
 file_id = "480",
 api_version = "v1"

@@ -18,8 +18,3 @@ NULL.
 This function uses the `View` function from Rstudio if available,
 otherwise it uses the utils::View function.
 }
-\examples{
-\dontrun{
- x <- response_view(x = df, title = "dataframe_title")
-}
-}
