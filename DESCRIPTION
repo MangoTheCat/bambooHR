@@ -1,6 +1,6 @@
 Package: bambooHR
 Type: Package
-Title: A Wrapper to the BambooHR API
+Title: A Wrapper to the 'BambooHR' API
 Version: 0.1.0
 Authors@R: 
     c(
@@ -10,7 +10,7 @@ Authors@R:
     person("Andrew", "Little", role = "ctb"),
     person("Mark", "Druffel", , "mdruffel@propellerpdx.com", role = "ctb"))
 Maintainer: Tom Bowling <tom.bowling@ascent.io>
-Description: Enables a user to consume the BambooHR API endpoints using R. The
+Description: Enables a user to consume the 'BambooHR' API endpoints using R. The
   actual URL of the API will depend on your company domain, but will be of the form
   <https://api.bamboohr.com/api/gateway.php/your_company_name/>. The API documentation
   can be found here <https://documentation.bamboohr.com/docs>.
