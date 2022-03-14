@@ -6,7 +6,7 @@
 \alias{bambooHR-package}
 \title{bambooHR: A Wrapper to the 'BambooHR' API}
 \description{
-Enables a user to consume the 'BambooHR' API endpoints using R. The actual URL of the API will depend on your company domain, but will be of the form <https://api.bamboohr.com/api/gateway.php/your_company_name/>. The API documentation can be found here <https://documentation.bamboohr.com/docs>.
+Enables a user to consume the 'BambooHR' API endpoints using R. The actual URL of the API will depend on your company domain, and will be handled by the package automatically once you setup the config file. The API documentation can be found here <https://documentation.bamboohr.com/docs>.
 }
 \seealso{
 Useful links:
