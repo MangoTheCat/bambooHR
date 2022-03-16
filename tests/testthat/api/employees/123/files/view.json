@@ -1,0 +1,29 @@
+{
+    "employee": {
+        "id": 123
+    },
+    "categories": [
+        {
+            "id": 3,
+            "name": "Employee Uploads",
+            "canRenameCategory": "no",
+            "canDeleteCategory": "no",
+            "canUploadFiles": "yes",
+            "displayIfEmpty": "no",
+            "files": [
+                {
+                    "id": 13838,
+                    "name": "picture.png",
+                    "originalFileName": "picture.png",
+                    "size": 84335,
+                    "dateCreated": "2022-02-15T14:24:56+0000",
+                    "createdBy": "A. Person",
+                    "shareWithEmployee": "yes",
+                    "canRenameFile": "no",
+                    "canDeleteFile": "no",
+                    "canChangeShareWithEmployeeFieldValue": "no"
+                }
+            ]
+        }
+    ]
+}

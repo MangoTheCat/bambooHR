@@ -2,27 +2,25 @@
 % Please edit documentation in R/build_url.r
 \name{build_url}
 \alias{build_url}
-\title{fill in}
+\title{Build URL Endpoints with Company Domain and API Version}
 \usage{
-build_url(company_domain, api_version, base_url)
+build_url(
+  company_domain = .get_company_name(),
+  api_version = "v1",
+  base_url = "https://api.bamboohr.com/api/gateway.php"
+)
 }
 \arguments{
-\item{company_domain}{tbd}
+\item{company_domain}{The subdomain used to access BambooHR. If you access BambooHR at https://mycompany.bamboohr.com, then the company_domain is "mycompany".
+Default value is obtained from \code{options("bambooHR.company_name")}. This can also be set in the config file using \code{config_setup("api key", "company_domain")}.}
 
-\item{table_name}{tbd}
+\item{api_version}{Version of API to use to make request. Default is "v1".}
 
-\item{employee_id}{tbd}
+\item{base_url}{URL to BambooHR API. Default is "https://api.bamboohr.com/api/gateway.php".}
 }
 \value{
-text
+character vector of URL with API version and company domain to give the base URL for API requests.
 }
 \description{
-fill in
-}
-\examples{
-
-
-}
-\author{
-Mark Druffel, \email{mdruffel@propellerpdx.com}
+Used to generate the base API request URL. URLs will start with "https://api.bamboohr.com/api/gateway.php/{company_domain}" which forms the base URL where a query string can then be appended to make the full request URL.
 }

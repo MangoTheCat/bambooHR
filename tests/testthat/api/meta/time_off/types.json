@@ -1,0 +1,101 @@
+{
+    "timeOffTypes": [
+        {
+            "id": "1",
+            "name": "Holiday",
+            "units": "days",
+            "color": "4aada4",
+            "icon": "palm-trees"
+        },
+        {
+            "id": "2",
+            "name": "Sick",
+            "units": "days",
+            "color": "e8454d",
+            "icon": "band-aid"
+        },
+        {
+            "id": "15",
+            "name": "Duvet Day",
+            "units": "days",
+            "color": null,
+            "icon": "happy-calendar"
+        },
+        {
+            "id": "6",
+            "name": "Compassionate Leave",
+            "units": "days",
+            "color": null,
+            "icon": "joining-hands"
+        },
+        {
+            "id": "13",
+            "name": "Time off in lieu (days)",
+            "units": "days",
+            "color": null,
+            "icon": "time-off-calendar"
+        },
+        {
+            "id": "5",
+            "name": "Blood Donation",
+            "units": "days",
+            "color": "56afdd",
+            "icon": "first-aid-kit"
+        },
+        {
+            "id": "4",
+            "name": "Paternity",
+            "units": "days",
+            "color": null,
+            "icon": "baby-carriage"
+        },
+        {
+            "id": "11",
+            "name": "Unpaid leave",
+            "units": "days",
+            "color": null,
+            "icon": "time-off-calendar"
+        },
+        {
+            "id": "3",
+            "name": "Maternity",
+            "units": "days",
+            "color": null,
+            "icon": "baby-carriage"
+        }
+    ],
+    "defaultHours": [
+        {
+            "name": "Saturday",
+            "amount": "0"
+        },
+        {
+            "name": "Sunday",
+            "amount": "0"
+        },
+        {
+            "name": "default",
+            "amount": "8"
+        },
+        {
+            "name": "Monday",
+            "amount": "8"
+        },
+        {
+            "name": "Tuesday",
+            "amount": "8"
+        },
+        {
+            "name": "Wednesday",
+            "amount": "8"
+        },
+        {
+            "name": "Thursday",
+            "amount": "8"
+        },
+        {
+            "name": "Friday",
+            "amount": "8"
+        }
+    ]
+}

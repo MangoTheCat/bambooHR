@@ -1,0 +1,32 @@
+[
+    {
+        "id": "1",
+        "employeeId": "123",
+        "date": "2021-01-01",
+        "location": "Somewhere",
+        "department": "Team",
+        "division": "Team",
+        "jobTitle": "Worker Bee",
+        "reportsTo": "A. Person"
+    },
+    {
+        "id": "2",
+        "employeeId": "123",
+        "date": "2021-03-08",
+        "location": "Somewhere",
+        "department": "Team",
+        "division": "Team",
+        "jobTitle": "Senior Worker Bee",
+        "reportsTo": "A. Person"
+    },
+    {
+        "id": "3",
+        "employeeId": "123",
+        "date": "2021-05-28",
+        "location": "Somewhere",
+        "department": "Team",
+        "division": "Team",
+        "jobTitle": "Senior Bee",
+        "reportsTo": "A.Person"
+    }
+]
