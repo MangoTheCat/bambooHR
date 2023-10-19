@@ -9,6 +9,8 @@
 #'
 #' @return A [httr::response()] object.
 #'
+#' @export
+#'
 #' @examples
 #' \dontrun{
 #' res <- get_request("https://api.bamboohr.com/api/gateway.php/your_company/v1/employees/0/")

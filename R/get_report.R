@@ -18,6 +18,7 @@
 #'
 #' @return Currently the function simply returns a parsed response object.
 #'
+#' @export
 get_report <- function(
   id,
   format = c("CSV", "PDF", "XLS", "XML", "JSON"),
