@@ -20,6 +20,8 @@
 #' )
 #'}
 #'
+#' @export
+#'
 #' @importFrom rlang .data
 #' @author Harry Alexander, \email{harry.alexander@ascent.io}
 

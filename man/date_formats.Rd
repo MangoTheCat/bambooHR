@@ -18,11 +18,11 @@ Functions to check date and datetime formats
 }
 \section{Functions}{
 \itemize{
-\item \code{is_ymd}: Check format is YYYY-MM-DD
+\item \code{is_ymd()}: Check format is YYYY-MM-DD
 
-\item \code{is_ymd_hms}: Check format is YYYY-MM-DD HH:MM:SS
+\item \code{is_ymd_hms()}: Check format is YYYY-MM-DD HH:MM:SS
 
-\item \code{is_ymd_hmsms}: Check format is YYYY-MM-DD HH:MM:SS.mmm
+\item \code{is_ymd_hmsms()}: Check format is YYYY-MM-DD HH:MM:SS.mmm
+
 }}
-
 \keyword{internal}

@@ -5,8 +5,7 @@
 \title{Get Meta Information}
 \usage{
 get_meta(
-  query = c("fields", "tables", "lists", "users", "time_off/types",
-    "time_off/policies"),
+  query = c("fields", "tables", "lists", "users", "time_off/types", "time_off/policies"),
   api_version = "v1"
 )
 }
