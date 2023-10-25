@@ -17,9 +17,6 @@
 #' httr::content(res, "text")
 #' }
 #'
-#' @references
-#' \url{https://github.com/r-lib/httr}
-#' \url{https://curl.se/libcurl/c/CURLOPT_HTTP_VERSION.html}
 #'
 #' @md
 

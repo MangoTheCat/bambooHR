@@ -21,12 +21,12 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Harry Alexander \email{harry.alexander@ascent.io}
   \item Tim Fry \email{tim.fry@ascent.io}
 }
 
 Other contributors:
 \itemize{
+  \item Harry Alexander [contributor]
   \item Andrew Little [contributor]
   \item Mark Druffel \email{mdruffel@propellerpdx.com} [contributor]
 }
