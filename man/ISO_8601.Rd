@@ -27,12 +27,12 @@ allowed format types.
 }
 \section{Functions}{
 \itemize{
-\item \code{as_ISO8601_character}: Coerce datetime into ISO8601 format. This will convert
+\item \code{as_ISO8601_character()}: Coerce datetime into ISO8601 format. This will convert
 represent the datetime relative to UTC using \code{+} notation. Milliseconds are
 removed.
 
-\item \code{coerce_ISO8601}: Coerce a date to ISO8601 format. This will convert the date
+\item \code{coerce_ISO8601()}: Coerce a date to ISO8601 format. This will convert the date
 into UTC (applying \code{Z} notation) and remove any milliseconds.
-}}
 
+}}
 \keyword{internal}

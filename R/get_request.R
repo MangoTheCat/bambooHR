@@ -9,15 +9,14 @@
 #'
 #' @return A [httr::response()] object.
 #'
+#' @export
+#'
 #' @examples
 #' \dontrun{
 #' res <- get_request("https://api.bamboohr.com/api/gateway.php/your_company/v1/employees/0/")
 #' httr::content(res, "text")
 #' }
 #'
-#' @references
-#' \url{https://github.com/r-lib/httr}
-#' \url{https://curl.se/libcurl/c/CURLOPT_HTTP_VERSION.html}
 #'
 #' @md
 

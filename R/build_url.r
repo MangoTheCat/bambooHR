@@ -1,6 +1,6 @@
 #' @title Build URL Endpoints with Company Domain and API Version
 #'
-#' @description  Used to generate the base API request URL. URLs will start with "https://api.bamboohr.com/api/gateway.php/{company_domain}" which forms the base URL where a query string can then be appended to make the full request URL.
+#' @description  Used to generate the base API request URL. URLs will start with "https://api.bamboohr.com/api/gateway.php/company_domain" which forms the base URL where a query string can then be appended to make the full request URL.
 #'
 #' @param company_domain  The subdomain used to access BambooHR. If you access BambooHR at https://mycompany.bamboohr.com, then the company_domain is "mycompany".
 #' Default value is obtained from \code{options("bambooHR.company_name")}. This can also be set in the config file using \code{config_setup("api key", "company_domain")}.

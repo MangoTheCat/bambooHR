@@ -1,12 +1,12 @@
 Package: bambooHR
 Type: Package
 Title: A Wrapper to the 'BambooHR' API
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     c(
     person("Tom", "Bowling", , "tom.bowling@ascent.io", role = c("aut", "cre")),
-    person("Harry", "Alexander", , "harry.alexander@ascent.io", role = "aut"),
     person("Tim", "Fry", , "tim.fry@ascent.io", role = "aut"),
+    person("Harry", "Alexander", role = "ctb"),
     person("Andrew", "Little", role = "ctb"),
     person("Mark", "Druffel", , "mdruffel@propellerpdx.com", role = "ctb"))
 Maintainer: Tom Bowling <tom.bowling@ascent.io>
@@ -27,17 +27,15 @@ Imports:
     tibble,
     tidyr,
     lubridate,
-    testthat,
     janitor,
     stringr,
     cli,
-    withr,
-    fs
+    withr
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 URL: https://mangothecat.github.io/bambooHR/
 BugReports: https://github.com/MangoTheCat/bambooHR/issues
-Suggests: httptest
+Suggests: httptest, testthat
 Config/testthat/edition: 3

@@ -22,5 +22,5 @@ Default value is obtained from \code{options("bambooHR.company_name")}. This can
 character vector of URL with API version and company domain to give the base URL for API requests.
 }
 \description{
-Used to generate the base API request URL. URLs will start with "https://api.bamboohr.com/api/gateway.php/{company_domain}" which forms the base URL where a query string can then be appended to make the full request URL.
+Used to generate the base API request URL. URLs will start with "https://api.bamboohr.com/api/gateway.php/company_domain" which forms the base URL where a query string can then be appended to make the full request URL.
 }
