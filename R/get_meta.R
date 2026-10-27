@@ -42,37 +42,42 @@ api_version = "v1") {
 
   # Get query and convert from JSON
   response <- get_request(url) %>%
-    httr::content(response, as = "text", type = "json", encoding = "UTF-8") %>%
-    purrr::when(
-      query %in% c("fields", "users", "time_off/types", "time_off/policies") ~ jsonlite::fromJSON(., simplifyDataFrame = TRUE),
-      query %in% c("tables", "lists") ~ jsonlite::fromJSON(., simplifyDataFrame = FALSE)
-    ) %>%
-    # Depending on query type, use data manipulation to tabulate results
-    purrr::when(
-      query == "tables" ~ {
-        function(x) {
-          purrr::map_chr(., "alias") %>%
-            tibble::tibble(.) %>%
-            purrr::set_names("parent_alias") %>%
-            dplyr::mutate(fields = purrr::map(x, "fields")) %>%
-            tidyr::unnest_longer(fields) %>%
-            tidyr::unnest_wider(col = "fields")
-        }
-      }(.),
-      query == "lists" ~ purrr::map(., function(s) {
-        s$fieldId <- as.character(s$fieldId)
-        s
-      }) %>%
-        dplyr::bind_rows() %>%
-        # Fix name in nested "options" column so that we can unnest it
-        dplyr::mutate(options = lapply(options, function(ls) {
-          ls$value <- ls$name
-          ls$name <- NULL
-          ls
-        })) %>%
-        tidyr::unnest_wider("options"),
-      ~ dplyr::bind_rows(.)
-    ) %>%
+    httr::content(response, as = "text", type = "json", encoding = "UTF-8")
+
+  response <- if (query %in% c("fields", "users", "time_off/types", "time_off/policies")) {
+    jsonlite::fromJSON(response, simplifyDataFrame = TRUE)
+  } else if (query %in% c("tables", "lists")) {
+    jsonlite::fromJSON(response, simplifyDataFrame = FALSE)
+  } else {
+    stop("No matching condition")
+  }
+
+  # Depending on query type, use data manipulation to tabulate results
+  response <- if (query == "tables") {
+    purrr::map_chr(response, "alias") %>%
+      tibble::tibble(.) %>%
+      purrr::set_names("parent_alias") %>%
+      dplyr::mutate(fields = purrr::map(response, "fields")) %>%
+      tidyr::unnest_longer(fields) %>%
+      tidyr::unnest_wider(col = "fields")
+  } else if (query == "lists") {
+    purrr::map(response, function(s) {
+      s$fieldId <- as.character(s$fieldId)
+      s
+    }) %>%
+      dplyr::bind_rows() %>%
+      # Fix name in nested "options" column so that we can unnest it
+      dplyr::mutate(options = lapply(options, function(ls) {
+        ls$value <- ls$name
+        ls$name <- NULL
+        ls
+      })) %>%
+      tidyr::unnest_wider("options")
+  } else {
+    dplyr::bind_rows(response)
+  }
+
+  response <- response %>%
     tibble::tibble() %>%
     # Clean column names
     janitor::clean_names()

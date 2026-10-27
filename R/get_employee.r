@@ -80,10 +80,10 @@ get_employee <- function(
                    purrr::transpose() %>%
                    tibble::as_tibble() %>%
                    tidyr::unnest(cols = everything())
-      ) %>%
-      purrr::when(!verbose ~ .[["employees"]],
-                  ~ .
       )
+    if (!verbose) {
+      responses <- responses[["employees"]]
+    }
   } else {
     responses <- responses %>%
       dplyr::bind_rows()
